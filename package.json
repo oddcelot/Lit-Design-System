@@ -7,7 +7,8 @@
     "dev": "vite --config vite.site.config.js",
     "build": "vite build",
     "build:site": "vite build --config vite.site.config.js",
-    "preview": "vite preview --config vite.site.config.js"
+    "preview": "vite preview --config vite.site.config.js",
+    "manifest": "lit labs gen --manifest --out . --exclude 'src/site/**'"
   },
   "dependencies": {
     "@lit-labs/router": "^0.1.4",
@@ -15,6 +16,8 @@
     "urlpattern-polyfill": "^10.1.0"
   },
   "devDependencies": {
+    "@lit-labs/cli": "^0.6.6",
+    "@lit-labs/gen-manifest": "^0.3.6",
     "@types/node": "^25.9.3",
     "typescript": "^6.0.3",
     "vite": "^8.0.16"
