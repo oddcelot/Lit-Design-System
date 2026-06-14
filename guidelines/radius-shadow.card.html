@@ -1,0 +1,34 @@
+<!-- @dsCard group="Spacing" viewport="700x150" name="Radius & elevation" subtitle="Corner radii and dark-tuned shadows" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--bg); font-family: var(--font-sans); padding: 22px;
+    display: flex; gap: 20px; align-items: center; }
+  .group { display: flex; gap: 14px; align-items: center; }
+  .box { width: 56px; height: 56px; background: var(--surface-elevated); border: 1px solid var(--border);
+    display: flex; align-items: flex-end; justify-content: center; padding-bottom: 5px; }
+  .box span { font: var(--weight-semibold) 10px/1 var(--font-mono); color: var(--text-secondary); }
+  .sh { width: 64px; height: 56px; background: var(--surface-container); border-radius: var(--radius-md);
+    display: flex; align-items: flex-end; justify-content: center; padding-bottom: 5px; }
+  .sh span { font: var(--weight-semibold) 10px/1 var(--font-mono); color: var(--text-secondary); }
+  .divider { width: 1px; height: 56px; background: var(--border); }
+</style>
+</head>
+<body>
+  <div class="group">
+    <div class="box" style="border-radius:var(--radius-sm)"><span>sm</span></div>
+    <div class="box" style="border-radius:var(--radius-md)"><span>md</span></div>
+    <div class="box" style="border-radius:var(--radius-lg)"><span>lg</span></div>
+    <div class="box" style="border-radius:var(--radius-2xl)"><span>2xl</span></div>
+  </div>
+  <div class="divider"></div>
+  <div class="group">
+    <div class="sh" style="box-shadow:var(--shadow-sm)"><span>sm</span></div>
+    <div class="sh" style="box-shadow:var(--shadow-md)"><span>md</span></div>
+    <div class="sh" style="box-shadow:var(--shadow-lg)"><span>lg</span></div>
+  </div>
+</body>
+</html>

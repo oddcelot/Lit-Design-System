@@ -1,0 +1,69 @@
+/* ============================================================
+   Lit Design System — Spacing, Radius, Shadow, Motion, Z
+   Tooling UIs are dense: the spacing scale starts fine-grained.
+   ============================================================ */
+
+:root {
+  /* ---- Spacing (4px base) ---- */
+  --space-0:  0;
+  --space-1:  2px;
+  --space-2:  4px;
+  --space-3:  6px;
+  --space-4:  8px;
+  --space-5:  12px;
+  --space-6:  16px;
+  --space-7:  20px;
+  --space-8:  24px;
+  --space-9:  32px;
+  --space-10: 40px;
+  --space-11: 48px;
+  --space-12: 64px;
+  --space-14: 80px;
+  --space-16: 96px;
+
+  /* ---- Radius ---- */
+  --radius-xs:   3px;
+  --radius-sm:   5px;
+  --radius-md:   8px;   /* default control / card        */
+  --radius-lg:   12px;  /* panels, active nav pill        */
+  --radius-xl:   16px;
+  --radius-2xl:  22px;  /* DevTools window shell          */
+  --radius-pill: 999px;
+
+  /* ---- Borders ---- */
+  --border-width: 1px;
+  --border-width-thick: 2px;
+
+  /* ---- Elevation (tuned for dark) ---- */
+  --shadow-xs:  0 1px 2px hsl(0 0% 0% / 0.30);
+  --shadow-sm:  0 1px 5px hsl(0 0% 0% / 0.35);
+  --shadow-md:  0 4px 14px hsl(0 0% 0% / 0.40);
+  --shadow-lg:  0 12px 32px hsl(0 0% 0% / 0.50);
+  --shadow-xl:  0 24px 64px hsl(0 0% 0% / 0.55);
+  /* focus ring */
+  --ring: 0 0 0 2px var(--accent-ring);
+  /* the floating DevTools window */
+  --shadow-window: 0 24px 80px hsl(0 0% 0% / 0.6), 0 0 0 1px hsl(0 0% 100% / 0.06);
+
+  /* ---- Motion ---- */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1); /* @kind other */
+  --ease-emphasized: cubic-bezier(0.3, 0, 0, 1); /* @kind other */
+  --ease-out: cubic-bezier(0, 0, 0.2, 1); /* @kind other */
+  --dur-instant: 80ms; /* @kind other */
+  --dur-fast:    140ms; /* @kind other */
+  --dur-normal:  220ms; /* @kind other */
+  --dur-slow:    360ms; /* @kind other */
+
+  /* ---- Layout ---- */
+  --rail-width: 56px;          /* DevTools icon rail */
+  --header-height: 60px;       /* website header     */
+  --content-max-width: 76rem;  /* content column     */
+
+  /* ---- Z-index ---- */
+  --z-base: 1; /* @kind other */
+  --z-sticky: 10; /* @kind other */
+  --z-overlay: 100; /* @kind other */
+  --z-modal: 1000; /* @kind other */
+  --z-toast: 1100; /* @kind other */
+  --z-tooltip: 1200; /* @kind other */
+}

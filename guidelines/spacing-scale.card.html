@@ -1,0 +1,27 @@
+<!-- @dsCard group="Spacing" viewport="700x140" name="Spacing scale" subtitle="4px base, fine-grained for dense tooling" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--bg); font-family: var(--font-sans); padding: 22px;
+    display: flex; align-items: flex-end; gap: 14px; }
+  .col { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .bar { background: var(--accent); border-radius: var(--radius-xs); width: 100%; }
+  .col > div:first-child { width: 28px; display: flex; align-items: flex-end; }
+  .lab { font: var(--weight-semibold) var(--text-2xs)/1 var(--font-mono); color: var(--text-secondary); }
+  .px { font: var(--weight-regular) 10px/1 var(--font-mono); color: var(--text-muted); }
+</style>
+</head>
+<body>
+  <div class="col"><div style="height:4px"><div class="bar" style="height:4px"></div></div><div class="lab">2</div><div class="px">4px</div></div>
+  <div class="col"><div style="height:8px"><div class="bar" style="height:8px"></div></div><div class="lab">4</div><div class="px">8px</div></div>
+  <div class="col"><div style="height:12px"><div class="bar" style="height:12px"></div></div><div class="lab">5</div><div class="px">12px</div></div>
+  <div class="col"><div style="height:16px"><div class="bar" style="height:16px"></div></div><div class="lab">6</div><div class="px">16px</div></div>
+  <div class="col"><div style="height:24px"><div class="bar" style="height:24px"></div></div><div class="lab">8</div><div class="px">24px</div></div>
+  <div class="col"><div style="height:32px"><div class="bar" style="height:32px"></div></div><div class="lab">9</div><div class="px">32px</div></div>
+  <div class="col"><div style="height:48px"><div class="bar" style="height:48px"></div></div><div class="lab">11</div><div class="px">48px</div></div>
+  <div class="col"><div style="height:64px"><div class="bar" style="height:64px"></div></div><div class="lab">12</div><div class="px">64px</div></div>
+</body>
+</html>

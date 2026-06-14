@@ -1,0 +1,148 @@
+/* ============================================================
+   Lit Design System — Color
+   ------------------------------------------------------------
+   Base palette = the Lit flame brand + a neutral ink scale.
+   Semantic aliases default to the DARK DevTools theme (the
+   flagship surface). Opt into the light website theme with
+   class .theme-light on a container (or <html>).
+   Values lifted from lit.dev (site/css/colors.css).
+   ============================================================ */
+
+:root {
+  /* ---- Brand · the Lit flame ---- */
+  --lit-blue:        #324fff; /* primary flame blue            */
+  --lit-blue-bright: #4d63ff; /* hover / container blue         */
+  --lit-indigo:      #2a2c9d; /* deep flame indigo              */
+  --lit-dark-blue:   #283198; /* flame shadow                   */
+  --lit-cyan:        #00ffff; /* flame tip cyan                 */
+  --lit-cyan-soft:   #91ffff; /* pale cyan wash                 */
+  --lit-dark-cyan:   #00e8ff; /* flame edge cyan                */
+
+  /* ---- Neutral ink scale (0 = near-black, 12 = white) ---- */
+  --ink-0:  hsl(0 0% 1%);   /* app void               */
+  --ink-1:  hsl(0 0% 5%);   /* lowest surface         */
+  --ink-2:  hsl(0 0% 7%);   /* base surface           */
+  --ink-3:  hsl(0 0% 11%);  /* container low          */
+  --ink-4:  hsl(0 0% 13%);  /* container             */
+  --ink-5:  hsl(0 0% 16%);  /* container high        */
+  --ink-6:  hsl(0 0% 21%);  /* container highest     */
+  --ink-7:  hsl(0 0% 28%);  /* hairline / variant    */
+  --ink-8:  hsl(0 0% 38%);  /* disabled text         */
+  --ink-9:  hsl(0 0% 57%);  /* outline / icon dim    */
+  --ink-10: hsl(0 0% 63%);  /* secondary text        */
+  --ink-11: hsl(0 0% 78%);  /* on-surface variant    */
+  --ink-12: hsl(0 0% 89%);  /* primary text          */
+  --ink-13: hsl(0 0% 100%); /* emphasis / white      */
+
+  /* ---- Code / token syntax (Material-ish, on dark) ---- */
+  --code-default:  #eeffff;
+  --code-keyword:  #c792ea; /* purple — keywords, booleans */
+  --code-string:   #c3e88d; /* green  — strings            */
+  --code-number:   #f78c6c; /* orange — numbers            */
+  --code-property: #b2ccd6; /* slate  — keys / props       */
+  --code-tag:      #89ddff; /* cyan   — tags / refs        */
+  --code-comment:  #616161; /* gray   — comments           */
+  --code-callee:   #82aaff; /* blue   — functions          */
+}
+
+/* ============================================================
+   DARK · DevTools theme (default on :root)
+   ============================================================ */
+:root {
+  --accent:               var(--lit-blue-bright);
+  --accent-hover:         #6478ff;
+  --accent-pressed:       #3d54f0;
+  --accent-soft:          hsla(232 100% 65% / 0.16);
+  --accent-ring:          hsla(232 100% 65% / 0.45);
+  --on-accent:            #ffffff;
+  --accent-cyan:          var(--lit-dark-cyan);
+
+  --bg:                   var(--ink-0);   /* outermost app void   */
+  --surface:             var(--ink-2);   /* panels               */
+  --surface-low:          var(--ink-1);
+  --surface-container:    var(--ink-4);
+  --surface-container-high: var(--ink-5);
+  --surface-elevated:     var(--ink-6);
+  --surface-hover:        hsl(0 0% 100% / 0.04);
+  --surface-active:       hsl(0 0% 100% / 0.07);
+
+  --text:                 var(--ink-12);
+  --text-strong:          var(--ink-13);
+  --text-secondary:       var(--ink-10);
+  --text-muted:           var(--ink-8);
+  --text-link:            var(--lit-blue-bright);
+
+  --border:               var(--ink-6);   /* default hairline     */
+  --border-strong:        var(--ink-7);
+  --border-subtle:        hsl(0 0% 100% / 0.06);
+
+  --success:              hsl(158 74% 53%);
+  --success-soft:         hsl(158 74% 53% / 0.15);
+  --warning:              #f4bf4f;
+  --warning-soft:         hsl(43 88% 63% / 0.15);
+  --error:                #ff6b6b;
+  --error-soft:           hsl(0 100% 71% / 0.15);
+  --info:                 var(--lit-dark-cyan);
+  --info-soft:            hsl(187 100% 47% / 0.15);
+
+  --selection-bg:         var(--accent);
+  --on-selection:         #ffffff;
+
+  color-scheme: dark;
+}
+
+/* ============================================================
+   LIGHT · lit.dev website theme  (.theme-light)
+   ============================================================ */
+.theme-light {
+  --accent:               var(--lit-blue);
+  --accent-hover:         #1f3bff;
+  --accent-pressed:       #2a2c9d;
+  --accent-soft:          hsla(232 100% 60% / 0.12);
+  --accent-ring:          hsla(232 100% 60% / 0.40);
+  --on-accent:            #ffffff;
+  --accent-cyan:          var(--lit-dark-cyan);
+
+  --bg:                   #f4f4f4;
+  --surface:              #ffffff;
+  --surface-low:          #f3f3f3;
+  --surface-container:    #ffffff;
+  --surface-container-high: #e8e8e8;
+  --surface-elevated:     #ffffff;
+  --surface-hover:        hsl(0 0% 0% / 0.04);
+  --surface-active:       hsl(0 0% 0% / 0.07);
+
+  --text:                 #242424;
+  --text-strong:          #000000;
+  --text-secondary:       #6e6e6e;
+  --text-muted:           #949494;
+  --text-link:            #005dc7;
+
+  --border:               #e2e2e2;
+  --border-strong:        #c6c6c6;
+  --border-subtle:        hsl(0 0% 0% / 0.07);
+
+  --success:              #00865b;
+  --success-soft:         hsl(158 100% 26% / 0.10);
+  --warning:              #b26a00;
+  --warning-soft:         hsl(40 100% 35% / 0.10);
+  --error:                #ba1a1a;
+  --error-soft:           hsl(0 75% 42% / 0.10);
+  --info:                 #005dc7;
+  --info-soft:            hsl(210 100% 39% / 0.10);
+
+  /* light-mode code colors (github-ish) */
+  --code-default:  #24292e;
+  --code-keyword:  #d92f3f;
+  --code-string:   #032f62;
+  --code-number:   #005cc5;
+  --code-property: #008176;
+  --code-tag:      #22863a;
+  --code-comment:  #6a737d;
+  --code-callee:   #6f42c1;
+
+  --selection-bg:         var(--accent);
+  --on-selection:         #ffffff;
+
+  color-scheme: light;
+}

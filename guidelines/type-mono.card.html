@@ -1,0 +1,23 @@
+<!-- @dsCard group="Type" viewport="700x150" name="Mono — Roboto Mono" subtitle="Code, state values, tag names" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--surface); color: var(--code-default); font-family: var(--font-mono);
+    padding: 22px; font-size: var(--text-sm); line-height: 1.7; }
+  .k { color: var(--code-keyword); }
+  .t { color: var(--code-tag); }
+  .s { color: var(--code-string); }
+  .c { color: var(--code-comment); }
+  .p { color: var(--code-property); }
+</style>
+</head>
+<body>
+  <div><span class="k">class</span> <span class="t">TodoItem</span> <span class="k">extends</span> <span class="t">LitElement</span> {</div>
+  <div>&nbsp;&nbsp;<span class="c">@property</span>() <span class="p">label</span> = <span class="s">'Buy milk'</span>;</div>
+  <div>&nbsp;&nbsp;<span class="p">render</span>() { <span class="k">return</span> html<span class="s">`&lt;li&gt;${'{'}this.label{'}'}&lt;/li&gt;`</span>; }</div>
+  <div>}</div>
+</body>
+</html>

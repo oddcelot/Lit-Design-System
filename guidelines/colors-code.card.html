@@ -1,0 +1,24 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Code & token syntax" subtitle="Inspector value colors on dark" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--surface); font-family: var(--font-mono); padding: 22px;
+    font-size: var(--text-sm); line-height: 1.7; }
+  .prop { color: var(--code-property); }
+  .punc { color: var(--text-muted); }
+  .row span:last-child { float: right; font-size: var(--text-2xs); color: var(--text-muted); }
+  .row { border-bottom: 1px solid var(--border-subtle); }
+</style>
+</head>
+<body>
+  <div class="row"><span class="prop">label</span><span class="punc"> : </span><span style="color:var(--code-string)">"Buy milk"</span><span>--code-string</span></div>
+  <div class="row"><span class="prop">count</span><span class="punc"> : </span><span style="color:var(--code-number)">42</span><span>--code-number</span></div>
+  <div class="row"><span class="prop">done</span><span class="punc"> : </span><span style="color:var(--code-keyword)">true</span><span>--code-keyword</span></div>
+  <div class="row"><span class="prop">node</span><span class="punc"> : </span><span style="color:var(--code-tag)">&lt;todo-item&gt;</span><span>--code-tag</span></div>
+  <div class="row"><span class="prop">render</span><span class="punc"> : </span><span style="color:var(--code-callee)">ƒ render()</span><span>--code-callee</span></div>
+  <div class="row"><span style="color:var(--code-comment)">// reactive update committed</span><span>--code-comment</span></div>
+</body>
+</html>
