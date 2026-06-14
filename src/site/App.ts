@@ -2,6 +2,7 @@ import { LitElement, html, css } from 'lit';
 import { Router } from '@lit-labs/router';
 import 'urlpattern-polyfill';
 import manifest from '../../_ds_manifest.json';
+import flameUrl from '../../assets/flame.svg?url';
 
 const GROUP_ORDER = ['site', 'Screens', 'Components', 'DevTools', 'Brand', 'Colors', 'Type', 'Spacing'];
 
@@ -188,7 +189,7 @@ export class SiteApp extends LitElement {
     return html`
       <nav class="nav">
         <a class="header" href=${BASE + '/'}>
-          <img src="assets/flame.svg" height="24" width="24" alt="Lit" />
+          <img src=${flameUrl} height="24" width="24" alt="Lit" />
           <span>Lit Design System</span>
         </a>
         ${groups.map(([group, items]) => html`
