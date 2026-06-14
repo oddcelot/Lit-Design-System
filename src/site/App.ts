@@ -108,18 +108,18 @@ export class SiteApp extends LitElement {
   `;
 
   private _router = new Router(this, [
-    { path: '/', enter: () => this._setFrame('pages/playground.html') },
+    { path: '/', enter: () => this._setFrame('playground.html') },
     { path: '/theme-showcase', enter: () => this._setFrame('theme-showcase.html') },
     ...(manifest.cards || []).map((card: any) => ({
-      path: '/' + card.path.replace(/\.html$/, ''),
+      path: '/' + card.path.replace(/(?:\.card)?\.html$/, ''),
       enter: () => this._setFrame(card.path),
     })),
     ...(manifest.startingPoints || []).map((sp: any) => ({
-      path: '/' + sp.path.replace(/\.html$/, ''),
+      path: '/' + sp.path.replace(/(?:\.card)?\.html$/, ''),
       enter: () => this._setFrame(sp.path),
     })),
     { path: '/templates/lit-devtools', enter: () => this._setFrame('templates/lit-devtools/index.html') },
-    { path: '/*', enter: () => this._setFrame('pages/playground.html') },
+    { path: '/*', enter: () => this._setFrame('playground.html') },
   ]);
 
   static properties = {
@@ -127,20 +127,20 @@ export class SiteApp extends LitElement {
     _frameLoaded: { type: Boolean, state: true },
   };
 
-  private _frameSrc = 'pages/playground.html';
+  private _frameSrc = 'playground.html';
   private _frameLoaded = true;
 
   private _navItems: NavItem[] = [
     { name: 'Playground', path: '/', group: 'site' },
     ...(manifest.cards || []).map((c: any) => ({
       name: c.name,
-      path: '/' + c.path.replace(/\.html$/, ''),
+      path: '/' + c.path.replace(/(?:\.card)?\.html$/, ''),
       group: c.group,
       subtitle: c.subtitle,
     })),
     ...(manifest.startingPoints || []).map((s: any) => ({
       name: s.name,
-      path: '/' + s.path.replace(/\.html$/, ''),
+      path: '/' + s.path.replace(/(?:\.card)?\.html$/, ''),
       group: s.section,
       subtitle: s.subtitle,
     })),
@@ -203,7 +203,7 @@ export class SiteApp extends LitElement {
       <main>
         <iframe
           .src=${this._frameSrc}
-          ?loaded=${this._frameLoaded}
+          class=${this._frameLoaded ? 'loaded' : ''}
           @load=${() => (this._frameLoaded = true)}
         ></iframe>
       </main>

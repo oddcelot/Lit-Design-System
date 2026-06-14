@@ -27,7 +27,10 @@ const htmlEntries = findHtmlFiles(root, root);
 
 export default defineConfig({
   root,
-  base: './',
+  base: '/',
+  server: {
+    historyApiFallback: true,
+  },
   publicDir: false,
   build: {
     outDir: 'dist-site',
