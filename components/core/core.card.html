@@ -15,46 +15,33 @@
 </style>
 </head>
 <body>
-<div id="root"></div>
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-<script src="../../_ds_bundle.js"></script>
-<script type="text/babel">
-  const { Button, IconButton, Badge } = window.LitDesignSystem_5536fe;
-  function Demo() {
-    return (
-      <div>
-        <div className="row">
-          <span className="lbl">Button — variants</span>
-          <Button variant="primary" icon="plus">New element</Button>
-          <Button variant="secondary" icon="filter">Filter</Button>
-          <Button variant="ghost">Reset</Button>
-          <Button variant="danger" icon="close">Disconnect</Button>
-          <Button variant="primary" disabled>Disabled</Button>
-        </div>
-        <div className="row">
-          <span className="lbl">Sizes &amp; icon-only</span>
-          <Button size="sm" variant="secondary">Small</Button>
-          <Button size="md" variant="secondary">Medium</Button>
-          <Button size="lg" variant="secondary">Large</Button>
-          <IconButton icon="refresh" label="Reload" variant="solid" />
-          <IconButton icon="settings" label="Settings" />
-          <IconButton icon="components" label="Elements" active />
-        </div>
-        <div className="row">
-          <span className="lbl">Badge — tones</span>
-          <Badge tone="accent">reactive</Badge>
-          <Badge tone="cyan">@property</Badge>
-          <Badge tone="success" dot>connected</Badge>
-          <Badge tone="warning">deprecated</Badge>
-          <Badge tone="error" dot>error</Badge>
-          <Badge tone="neutral" mono>v3.2.1</Badge>
-        </div>
-      </div>
-    );
-  }
-  ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
-</script>
+  <div class="row">
+    <span class="lbl">Button — variants</span>
+    <lit-button variant="primary" icon="plus">New element</lit-button>
+    <lit-button variant="secondary" icon="filter">Filter</lit-button>
+    <lit-button variant="ghost">Reset</lit-button>
+    <lit-button variant="danger" icon="close">Disconnect</lit-button>
+    <lit-button variant="primary" disabled>Disabled</lit-button>
+  </div>
+  <div class="row">
+    <span class="lbl">Sizes &amp; icon-only</span>
+    <lit-button size="sm" variant="secondary">Small</lit-button>
+    <lit-button size="md" variant="secondary">Medium</lit-button>
+    <lit-button size="lg" variant="secondary">Large</lit-button>
+    <lit-icon-button icon="refresh" label="Reload" variant="solid"></lit-icon-button>
+    <lit-icon-button icon="settings" label="Settings"></lit-icon-button>
+    <lit-icon-button icon="components" label="Elements" active></lit-icon-button>
+  </div>
+  <div class="row">
+    <span class="lbl">Badge — tones</span>
+    <lit-badge tone="accent">reactive</lit-badge>
+    <lit-badge tone="cyan">@property</lit-badge>
+    <lit-badge tone="success" dot>connected</lit-badge>
+    <lit-badge tone="warning">deprecated</lit-badge>
+    <lit-badge tone="error" dot>error</lit-badge>
+    <lit-badge tone="neutral" mono>v3.2.1</lit-badge>
+  </div>
+
+  <script type="module" src="../../src/index.ts"></script>
 </body>
 </html>

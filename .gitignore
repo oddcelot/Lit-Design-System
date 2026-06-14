@@ -89,3 +89,7 @@ typings/
 
 # Build output
 dist/
+dist-site/
+
+# Generated manifest (old build system)
+_ds_manifest.json

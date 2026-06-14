@@ -10,59 +10,101 @@
   .lbl { font: var(--weight-semibold) var(--text-2xs)/1 var(--font-sans); text-transform: uppercase;
     letter-spacing: var(--tracking-caps); color: var(--text-muted); margin: 0 0 8px; }
   .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; align-items: start; }
-  .panel { background: var(--surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 8px; }
+  .panel { background: var(--surface-container); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 8px; }
 </style>
 </head>
 <body>
-<div id="root"></div>
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-<script src="../../_ds_bundle.js"></script>
-<script type="text/babel">
-  const { StatCard, SegmentedTabs, TreeNode, StateRow } = window.LitDesignSystem_5536fe;
-  function Demo() {
-    const [tab, setTab] = React.useState('props');
-    const [sel, setSel] = React.useState('list');
-    return (
-      <div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 12, marginBottom: 22 }}>
-          <StatCard icon="package" value="v3.2.1" label="Lit" accent />
-          <StatCard icon="route" value="6" label="pages" />
-          <StatCard icon="components" value="24" label="custom elements" />
-        </div>
-        <div style={{ marginBottom: 14 }}>
-          <SegmentedTabs value={tab} onChange={setTab}
-            items={[{id:'props',label:'Properties'},{id:'attrs',label:'Attributes'},{id:'events',label:'Events'}]} />
-        </div>
-        <div className="cols">
-          <div>
-            <p className="lbl">TreeNode</p>
-            <div className="panel">
-              <TreeNode tag="todo-app" depth={0} expandable expanded onSelect={()=>setSel('app')} selected={sel==='app'}>
-                <TreeNode tag="todo-header" depth={1} onSelect={()=>setSel('header')} selected={sel==='header'} />
-                <TreeNode tag="todo-list" depth={1} expandable expanded badge="3" onSelect={()=>setSel('list')} selected={sel==='list'}>
-                  <TreeNode tag="todo-item" depth={2} onSelect={()=>setSel('item')} selected={sel==='item'} />
-                </TreeNode>
-              </TreeNode>
-            </div>
-          </div>
-          <div>
-            <p className="lbl">StateRow</p>
-            <div className="panel">
-              <StateRow name="properties" value="Reactive" expandable expanded badge="@property">
-                <StateRow name="count" value={3} type="number" depth={1} />
-                <StateRow name="label" value="Buy milk" type="string" depth={1} />
-                <StateRow name="done" value={false} type="boolean" depth={1} />
-              </StateRow>
-              <StateRow name="hidden" value="false" type="boolean" badge="(Ref)" />
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-  ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
-</script>
+  <div style="display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 22px;">
+    <lit-stat-card icon="package" value="v3.2.1" label="Lit" accent></lit-stat-card>
+    <lit-stat-card icon="route" value="6" label="pages"></lit-stat-card>
+    <lit-stat-card icon="components" value="24" label="custom elements"></lit-stat-card>
+  </div>
+
+  <div style="margin-bottom: 14;">
+    <lit-segmented-tabs id="demo-tabs"></lit-segmented-tabs>
+  </div>
+
+  <div class="cols">
+    <div>
+      <p class="lbl">TreeNode</p>
+      <div class="panel" id="tree-panel"></div>
+    </div>
+    <div>
+      <p class="lbl">StateRow</p>
+      <div class="panel" id="state-panel"></div>
+    </div>
+  </div>
+
+  <script type="module" src="../../src/index.ts"></script>
+  <script type="module">
+    // ---- Tabs ----
+    const tabs = document.getElementById('demo-tabs');
+    tabs.items = [
+      { id: 'props', label: 'Properties' },
+      { id: 'attrs', label: 'Attributes' },
+      { id: 'events', label: 'Events' },
+    ];
+    tabs.value = 'props';
+
+    // ---- Tree ----
+    const state = { selected: 'list' };
+    function buildTree() {
+      const wrap = document.getElementById('tree-panel');
+      wrap.innerHTML = '';
+      const sel = (id) => {
+        state.selected = id;
+        buildTree();
+      };
+      const app = document.createElement('lit-tree-node');
+      app.tag = 'todo-app'; app.depth = 0; app.expandable = true; app.expanded = true;
+      app.selected = state.selected === 'app';
+      app.addEventListener('select', () => sel('app'));
+      const header = document.createElement('lit-tree-node');
+      header.tag = 'todo-header'; header.depth = 1;
+      header.selected = state.selected === 'header';
+      header.addEventListener('select', () => sel('header'));
+      const list = document.createElement('lit-tree-node');
+      list.tag = 'todo-list'; list.depth = 1; list.expandable = true; list.expanded = true;
+      list.badge = '3'; list.selected = state.selected === 'list';
+      list.addEventListener('select', () => sel('list'));
+      const item = document.createElement('lit-tree-node');
+      item.tag = 'todo-item'; item.depth = 2;
+      item.selected = state.selected === 'item';
+      item.addEventListener('select', () => sel('item'));
+      list.appendChild(item);
+      app.appendChild(header);
+      app.appendChild(list);
+      wrap.appendChild(app);
+    }
+    buildTree();
+
+    // ---- State ----
+    function buildState() {
+      const wrap = document.getElementById('state-panel');
+      wrap.innerHTML = '';
+      const props = document.createElement('lit-state-row');
+      props.name = 'properties'; props.value = 'Reactive';
+      props.expandable = true; props.expanded = true; props.badge = '@property';
+      props.addEventListener('toggle', () => {
+        props.expanded = !props.expanded;
+        buildState();
+      });
+      const count = document.createElement('lit-state-row');
+      count.name = 'count'; count.value = '3'; count.type = 'number'; count.depth = 1;
+      const label = document.createElement('lit-state-row');
+      label.name = 'label'; label.value = 'Buy milk'; label.type = 'string'; label.depth = 1;
+      const done = document.createElement('lit-state-row');
+      done.name = 'done'; done.value = 'false'; done.type = 'boolean'; done.depth = 1;
+      props.appendChild(count);
+      props.appendChild(label);
+      props.appendChild(done);
+      wrap.appendChild(props);
+
+      const hidden = document.createElement('lit-state-row');
+      hidden.name = 'hidden'; hidden.value = 'false'; hidden.type = 'boolean'; hidden.badge = '(Ref)';
+      wrap.appendChild(hidden);
+    }
+    buildState();
+  </script>
 </body>
 </html>

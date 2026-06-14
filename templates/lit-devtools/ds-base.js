@@ -1,17 +1,12 @@
 ( () => {
   const base = '../..';
-  for (const p of ['styles.css']) {
-    const l = document.createElement('link');
-    l.rel = 'stylesheet';
-    l.href = base + '/' + p;
-    document.head.appendChild(l);
-  }
   const s = document.createElement('script');
-  s.src = base + '/dist/_ds_bundle.js';
+  s.type = 'module';
+  s.src = base + '/src/index.ts';
   s.onerror = () =>
     console.error(
       'ds-base.js: failed to load ' + s.src +
-      ' — ensure Vite build has been run (npm run build)'
+      ' — ensure Vite dev server is running (npm run dev)'
     );
   document.head.appendChild(s);
 })();

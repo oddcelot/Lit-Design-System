@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="stylesheet" href="../../styles.css" />
 <style>
+  html, body { margin: 0; min-height: 100%; }
   body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font-sans); padding: 22px; }
   .lbl { font: var(--weight-semibold) var(--text-2xs)/1 var(--font-sans); text-transform: uppercase;
     letter-spacing: var(--tracking-caps); color: var(--text-muted); margin: 0 0 8px; }
@@ -16,38 +17,31 @@
 </style>
 </head>
 <body>
-<div id="root"></div>
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-<script src="../../_ds_bundle.js"></script>
-<script type="text/babel">
-  const { Input, Switch } = window.LitDesignSystem_5536fe;
-  function Demo() {
-    const [a, setA] = React.useState(true);
-    const [b, setB] = React.useState(false);
-    return (
-      <div className="grid">
-        <div>
-          <p className="lbl">Input</p>
-          <div className="stack">
-            <Input icon="search" placeholder="Find components…" defaultValue="my-" />
-            <Input placeholder="Filter state…" trailing={<kbd>⌘K</kbd>} />
-            <Input placeholder="Invalid value" invalid defaultValue="—" />
-          </div>
-        </div>
-        <div>
-          <p className="lbl">Switch</p>
-          <div className="stack">
-            <Switch checked={a} onChange={setA} label="Highlight updates" />
-            <Switch checked={b} onChange={setB} label="Group components by file" />
-            <Switch checked={false} disabled label="Experimental (disabled)" />
-          </div>
-        </div>
+  <div class="grid">
+    <div>
+      <p class="lbl">Input</p>
+      <div class="stack">
+        <lit-input icon="search" placeholder="Find components…"></lit-input>
+        <lit-input placeholder="Filter state…">
+          <kbd slot="trailing">⌘K</kbd>
+        </lit-input>
+        <lit-input placeholder="Invalid value" invalid></lit-input>
       </div>
-    );
-  }
-  ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
-</script>
+    </div>
+    <div>
+      <p class="lbl">Switch</p>
+      <div class="stack">
+        <lit-switch id="sw-a" checked label="Highlight updates"></lit-switch>
+        <lit-switch id="sw-b" label="Group components by file"></lit-switch>
+        <lit-switch disabled label="Experimental (disabled)"></lit-switch>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="../../src/index.ts"></script>
+  <script type="module">
+    document.getElementById('sw-a').addEventListener('change', (e) => console.log('sw-a:', e.detail.checked));
+    document.getElementById('sw-b').addEventListener('change', (e) => console.log('sw-b:', e.detail.checked));
+  </script>
 </body>
 </html>

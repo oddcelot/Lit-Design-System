@@ -1,0 +1,296 @@
+<!-- @dsCard group="Brand" viewport="1280x720" name="Light & Dark themes" subtitle="Same components in both palettes, side by side" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lit — Light &amp; Dark Themes</title>
+<link rel="icon" href="assets/flame-favicon.svg" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  html, body { margin: 0; min-height: 100%; }
+  body {
+    background:
+      radial-gradient(120% 70% at 50% -10%, hsl(232 60% 12% / 0.45), transparent 55%),
+      var(--ink-0);
+    font-family: var(--font-sans);
+    color: var(--text);
+    padding: 32px 28px 56px;
+    box-sizing: border-box;
+  }
+  .page-head {
+    display: flex; align-items: center; gap: 16px;
+    max-width: 1180px; margin: 0 auto 8px;
+  }
+  .page-head h1 {
+    margin: 0; font: var(--weight-extrabold) var(--text-2xl)/1 var(--font-sans);
+    color: var(--text-strong); letter-spacing: var(--tracking-tight);
+  }
+  .page-head p {
+    margin: 4px 0 0; font: var(--weight-regular) var(--text-sm)/1.4 var(--font-sans);
+    color: var(--text-secondary);
+  }
+  .page-head code { font-family: var(--font-mono); }
+  .toolbar { margin: 22px 0 18px; display: flex; justify-content: center; }
+  #root { max-width: 1180px; margin: 0 auto; }
+  .panels { display: grid; gap: 22px; }
+  .panels.both { grid-template-columns: 1fr 1fr; }
+  .panels.single { grid-template-columns: 1fr; }
+  .panel-wrap { border-radius: var(--radius-2xl); overflow: hidden; box-shadow: var(--shadow-lg); }
+  .panel-head {
+    display: flex; align-items: center; gap: 10px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border-subtle);
+    background: var(--surface-low);
+    font: var(--weight-bold) var(--text-md)/1 var(--font-sans);
+    color: var(--text-strong);
+  }
+  .panel-head .spacer { margin-left: auto; }
+  .panel-body { padding: 18px; display: flex; flex-direction: column; gap: 18px; }
+  .stat-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+  .ctrl-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
+  .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .inspector-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .inspector-panel { background: var(--surface-container); border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg); padding: 8px; }
+</style>
+</head>
+<body>
+  <div class="page-head">
+    <img src="assets/flame.svg" height="44" alt="Lit" />
+    <div>
+      <h1>Light &amp; Dark</h1>
+      <p>One token set, two palettes. Dark is the default DevTools surface; <code>.theme-light</code> is the lit.dev website theme.</p>
+    </div>
+  </div>
+  <div id="root"></div>
+
+  <script type="module" src="src/index.ts"></script>
+  <script type="module">
+    function createPanel(id, isLight) {
+      const theme = isLight ? 'theme-light' : '';
+      const wrap = document.createElement('div');
+      wrap.className = 'panel-wrap ' + theme;
+      wrap.style.background = 'var(--surface)';
+      wrap.style.border = '1px solid var(--border)';
+
+      // --- header ---
+      const head = document.createElement('div');
+      head.className = 'panel-head';
+      const icon = document.createElement('lit-icon');
+      icon.name = isLight ? 'eye' : 'zap';
+      icon.size = 18;
+      icon.style.cssText = 'color: var(--accent);';
+      head.appendChild(icon);
+
+      const title = document.createElement('span');
+      title.textContent = (isLight ? 'Light' : 'Dark') + ' theme';
+      head.appendChild(title);
+
+      const themeBadge = document.createElement('lit-badge');
+      themeBadge.tone = 'neutral';
+      themeBadge.mono = true;
+      themeBadge.textContent = isLight ? '.theme-light' : ':root';
+      head.appendChild(themeBadge);
+
+      const spacer = document.createElement('span');
+      spacer.className = 'spacer';
+      head.appendChild(spacer);
+
+      const roleBadge = document.createElement('lit-badge');
+      roleBadge.tone = isLight ? 'success' : 'accent';
+      roleBadge.dot = true;
+      roleBadge.textContent = isLight ? 'website' : 'devtools';
+      head.appendChild(roleBadge);
+
+      wrap.appendChild(head);
+
+      // --- body ---
+      const body = document.createElement('div');
+      body.className = 'panel-body';
+
+      // stat cards
+      const sgrid = document.createElement('div');
+      sgrid.className = 'stat-grid';
+      const mkStat = (ic, val, lbl, accent) => {
+        const s = document.createElement('lit-stat-card');
+        s.icon = ic; s.value = val; s.label = lbl;
+        if (accent) s.accent = true;
+        sgrid.appendChild(s);
+      };
+      mkStat('package', 'v3.2.1', 'Lit', true);
+      mkStat('route', '6', 'pages');
+      mkStat('components', '24', 'elements');
+      body.appendChild(sgrid);
+
+      // controls card
+      const card = document.createElement('lit-card');
+      card.cardTitle = 'Controls';
+      const ctrlRow = document.createElement('div');
+      ctrlRow.className = 'ctrl-row';
+      const mkBtn = (variant, icon, label) => {
+        const b = document.createElement('lit-button');
+        b.variant = variant;
+        if (icon) b.icon = icon;
+        b.textContent = label;
+        ctrlRow.appendChild(b);
+      };
+      mkBtn('primary', 'plus', 'New');
+      mkBtn('secondary', 'filter', 'Filter');
+      mkBtn('ghost', null, 'Reset');
+      mkBtn('danger', 'close', 'Stop');
+
+      const ib1 = document.createElement('lit-icon-button');
+      ib1.icon = 'refresh'; ib1.label = 'Reload'; ib1.variant = 'solid';
+      ctrlRow.appendChild(ib1);
+      const ib2 = document.createElement('lit-icon-button');
+      ib2.icon = 'components'; ib2.label = 'Elements'; ib2.active = true;
+      ctrlRow.appendChild(ib2);
+      card.appendChild(ctrlRow);
+
+      // badges
+      const badgeRow = document.createElement('div');
+      badgeRow.className = 'badge-row';
+      const mkBadge = (tone, txt, opts) => {
+        const b = document.createElement('lit-badge');
+        b.tone = tone;
+        if (opts?.dot) b.dot = true;
+        b.textContent = txt;
+        badgeRow.appendChild(b);
+      };
+      mkBadge('accent', 'reactive');
+      mkBadge('cyan', '@property');
+      mkBadge('success', 'connected', { dot: true });
+      mkBadge('warning', 'deprecated');
+      mkBadge('error', 'error', { dot: true });
+      card.appendChild(badgeRow);
+
+      // input
+      const inp = document.createElement('lit-input');
+      inp.icon = 'search';
+      inp.placeholder = 'Find components…';
+      card.appendChild(inp);
+
+      // switches
+      const swRow = document.createElement('div');
+      swRow.style.cssText = 'display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px;';
+      const sw1 = document.createElement('lit-switch');
+      sw1.checked = true; sw1.label = 'Highlight updates';
+      swRow.appendChild(sw1);
+      const sw2 = document.createElement('lit-switch');
+      sw2.label = 'Group by file';
+      swRow.appendChild(sw2);
+      card.appendChild(swRow);
+
+      // segmented tabs
+      const tabs = document.createElement('lit-segmented-tabs');
+      tabs.items = [
+        { id: 'props', label: 'Properties' },
+        { id: 'attrs', label: 'Attributes' },
+        { id: 'events', label: 'Events' },
+      ];
+      tabs.value = 'props';
+      card.appendChild(tabs);
+
+      body.appendChild(card);
+
+      // inspector grid
+      const igrid = document.createElement('div');
+      igrid.className = 'inspector-grid';
+
+      const treePanel = document.createElement('div');
+      treePanel.className = 'inspector-panel';
+      const treeSel = { selected: 'item' };
+      function buildTree() {
+        treePanel.innerHTML = '';
+        const mkNode = (tag, depth, opts) => {
+          const n = document.createElement('lit-tree-node');
+          n.tag = tag; n.depth = depth;
+          if (opts.expandable) { n.expandable = true; n.expanded = true; }
+          if (opts.badge) n.badge = opts.badge;
+          n.selected = treeSel.selected === (opts.id || tag);
+          if (opts.id) {
+            n.addEventListener('select', () => { treeSel.selected = opts.id; buildTree(); });
+          }
+          return n;
+        };
+        const app = mkNode('todo-app', 0, { expandable: true, id: 'app' });
+        const header = mkNode('todo-header', 1, { id: 'header' });
+        const list = mkNode('todo-list', 1, { expandable: true, id: 'list', badge: '3' });
+        const item = mkNode('todo-item', 2, { id: 'item' });
+        list.appendChild(item);
+        app.appendChild(header);
+        app.appendChild(list);
+        treePanel.appendChild(app);
+      }
+      buildTree();
+
+      const statePanel = document.createElement('div');
+      statePanel.className = 'inspector-panel';
+      function buildState() {
+        statePanel.innerHTML = '';
+        const props = document.createElement('lit-state-row');
+        props.name = 'properties'; props.value = 'Reactive';
+        props.expandable = true; props.expanded = true; props.badge = '@property';
+        const expandedState = { val: true };
+        props.addEventListener('toggle', () => { expandedState.val = !expandedState.val; buildState(); });
+        const label = document.createElement('lit-state-row');
+        label.name = 'label'; label.value = 'Buy oat milk'; label.type = 'string'; label.depth = 1;
+        const idx = document.createElement('lit-state-row');
+        idx.name = 'index'; idx.value = '1'; idx.type = 'number'; idx.depth = 1;
+        const done = document.createElement('lit-state-row');
+        done.name = 'done'; done.value = 'false'; done.type = 'boolean'; done.depth = 1;
+        props.appendChild(label);
+        props.appendChild(idx);
+        props.appendChild(done);
+        statePanel.appendChild(props);
+        const refRow = document.createElement('lit-state-row');
+        refRow.name = 'node'; refRow.value = '<todo-item>'; refRow.type = 'ref';
+        statePanel.appendChild(refRow);
+      }
+      buildState();
+
+      igrid.appendChild(treePanel);
+      igrid.appendChild(statePanel);
+      body.appendChild(igrid);
+
+      wrap.appendChild(body);
+      return wrap;
+    }
+
+    function render(mode) {
+      const root = document.getElementById('root');
+      root.innerHTML = '';
+
+      if (mode === 'both') {
+        const panels = document.createElement('div');
+        panels.className = 'panels both';
+        panels.appendChild(createPanel('dark', false));
+        panels.appendChild(createPanel('light', true));
+        root.appendChild(panels);
+      } else {
+        const panels = document.createElement('div');
+        panels.className = 'panels single';
+        panels.appendChild(createPanel('single', mode === 'theme-light'));
+        root.appendChild(panels);
+      }
+    }
+
+    // Toolbar with mode selector
+    const toolbar = document.createElement('div');
+    toolbar.className = 'toolbar';
+    const modeTabs = document.createElement('lit-segmented-tabs');
+    modeTabs.items = [
+      { id: 'both', label: 'Side by side' },
+      { id: 'theme-dark', label: 'Dark' },
+      { id: 'theme-light', label: 'Light' },
+    ];
+    modeTabs.value = 'both';
+    modeTabs.addEventListener('change', (e) => render(e.detail.value));
+    toolbar.appendChild(modeTabs);
+
+    document.getElementById('root').before(toolbar);
+    render('both');
+  </script>
+</body>
+</html>

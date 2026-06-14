@@ -1,8 +1,7 @@
 // Fake Lit app data powering the DevTools UI kit demo.
-window.LIT_DEMO = {
+const LIT_DEMO = {
   version: '3.2.1',
   appName: 'todo-app',
-  // Custom-element instance tree
   tree: [
     { id: 'app', tag: 'todo-app', depth: 0, expandable: true,
       children: [
@@ -17,7 +16,6 @@ window.LIT_DEMO = {
         { id: 'footer', tag: 'todo-footer', depth: 1 },
       ] },
   ],
-  // State per element id
   state: {
     app: {
       props: [
@@ -57,7 +55,6 @@ window.LIT_DEMO = {
       ],
     },
   },
-  // Timeline of reactive updates
   timeline: [
     { id: 1, el: 'todo-item', kind: 'update', label: 'done: false → true', t: 0.08, dur: '0.4ms' },
     { id: 2, el: 'todo-list', kind: 'update', label: 'items changed', t: 0.10, dur: '1.2ms' },
@@ -75,3 +72,6 @@ window.LIT_DEMO = {
     { path: '/settings', name: 'settings', matched: 'settings-view' },
   ],
 };
+
+window.LIT_DEMO = LIT_DEMO;
+export { LIT_DEMO };
