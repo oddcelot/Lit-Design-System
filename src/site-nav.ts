@@ -182,7 +182,7 @@ function injectNav() {
   if (document.querySelector('lit-site-nav')) return;
   const nav = document.createElement('lit-site-nav');
   document.body.prepend(nav);
-  document.body.style.paddingLeft = '220px';
+  document.body.style.paddingLeft = '248px';
 }
 
 if (document.readyState === 'loading') {
