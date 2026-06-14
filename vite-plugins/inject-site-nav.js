@@ -172,25 +172,19 @@ export function injectSiteNav() {
     }
 
     ::view-transition-old(root) {
-      animation: var(--dur-normal) var(--ease-standard) both vt-slide-out;
+      animation: var(--dur-normal) var(--ease-standard) both vt-fade-out;
     }
 
     ::view-transition-new(root) {
-      animation: var(--dur-normal) var(--ease-standard) both vt-slide-in;
+      animation: var(--dur-normal) var(--ease-standard) both vt-fade-in;
     }
 
-    @keyframes vt-slide-out {
-      to {
-        opacity: 0;
-        transform: translateX(-12px);
-      }
+    @keyframes vt-fade-out {
+      to { opacity: 0; }
     }
 
-    @keyframes vt-slide-in {
-      from {
-        opacity: 0;
-        transform: translateX(12px);
-      }
+    @keyframes vt-fade-in {
+      from { opacity: 0; }
     }
   </style>
 `;
