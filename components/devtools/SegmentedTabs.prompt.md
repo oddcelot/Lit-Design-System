@@ -1,9 +1,12 @@
 SegmentedTabs is an inline segmented control for switching views within a panel.
 
-```jsx
-const [tab, setTab] = React.useState('props');
-<SegmentedTabs value={tab} onChange={setTab}
-  items={[{id:'props',label:'Properties'},{id:'attrs',label:'Attributes'},{id:'events',label:'Events'}]} />
+```html
+<lit-segmented-tabs id="tabs" value="props" size="sm"></lit-segmented-tabs>
+<script>
+  const tabs = document.getElementById('tabs');
+  tabs.items = [{id:'props',label:'Properties'},{id:'attrs',label:'Attributes'},{id:'events',label:'Events'}];
+  tabs.addEventListener('change', (e) => console.log(e.detail.value));
+</script>
 ```
 
-Props: `items` ([{id,label}]), `value`, `onChange(id)`, `size` (sm · md).
+Props: `items` ([{id,label}]), `value`, `size` (sm · md). Emits `change` event (`e.detail.value`).

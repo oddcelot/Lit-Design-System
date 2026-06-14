@@ -1,8 +1,8 @@
-Switch is a controlled boolean toggle — the standard control for DevTools settings rows. Drive it with `checked` + `onChange`.
+Switch is a controlled boolean toggle — the standard control for DevTools settings rows.
 
-```jsx
-const [on, setOn] = React.useState(true);
-<Switch checked={on} onChange={setOn} label="Highlight updates" />
+```html
+<lit-switch checked label="Highlight updates"></lit-switch>
+<lit-switch label="Dark mode"></lit-switch>
 ```
 
-Props: `checked`, `onChange(next)`, `disabled`, `size` (sm · md), `label`.
+Props: `checked`, `disabled`, `size` (sm · md), `label`. Emits `change` event.

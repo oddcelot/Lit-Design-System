@@ -7,7 +7,7 @@ Vite-DevTools-style inspector for Lit applications.
 Lit ships small, standards-based custom elements. Its visual identity is the
 **flame** mark (cyan → blue → indigo), the **Manrope** typeface, and a dark,
 developer-tooling aesthetic borrowed from the Vue / Vite DevTools family. This
-system packages those foundations as design tokens, React UI primitives, and a
+system packages those foundations as design tokens and a
 full interactive DevTools UI kit so agents can build on-brand Lit interfaces,
 docs, and tooling.
 
@@ -120,7 +120,7 @@ Examples to imitate:
 - **DevTools (this kit):** a **Lucide-style stroke set** — 24×24 grid, 2px
   stroke, round caps/joins, `fill: none`. This matches the lightweight outline
   aesthetic of the Vite / Vue DevTools. It is delivered as the **`Icon`**
-  React component (`components/core/Icon.jsx`) with a curated set
+  Lit component (`src/components/core/Icon.ts`) with a curated set
   (`info, components, tree, assets, route, timeline, graph, search, settings,
   close, chevrons, refresh, code, eye, external-link, target, filter, copy,
   split, star, bulb, map, bug, command, zap, file, folder, terminal, github,
@@ -168,7 +168,7 @@ Fonts live in `fonts/` (Manrope 400–800, Roboto Mono 400) — see `fonts/LICEN
 - `tokens/spacing.css` — spacing, radius, shadow, motion, layout, z-index.
 - `tokens/fonts.css` — `@font-face` declarations.
 
-**Components** (`components/`, React, exported on `window.LitDesignSystem_5536fe`)
+**Components** (`src/components/`, Lit)
 - `core/` — `Icon`, `Button`, `IconButton`, `Badge`, `Card`
 - `forms/` — `Input`, `Switch`
 - `devtools/` — `StatCard`, `SegmentedTabs`, `TreeNode`, `StateRow`
@@ -183,23 +183,22 @@ System tab (Colors, Type, Spacing, Brand).
 
 **Meta**
 - `SKILL.md` — Agent-Skills wrapper so this system works in Claude Code.
-- `_ds_bundle.js`, `_ds_manifest.json` — generated; do not edit.
+- `_ds_manifest.json` — generated; do not edit.
 
 ---
 
 ## Using the components
 
-In a card / page: link the stylesheet, load the bundle, read the namespace.
+Components are built with Lit and live in `src/components/`. Import them directly:
 
 ```html
-<link rel="stylesheet" href="/styles.css" />
-<script src="/_ds_bundle.js"></script>
-<script type="text/babel">
-  const { Button, Icon } = window.LitDesignSystem_5536fe;
-  // <Button variant="primary" icon="plus">New element</Button>
+<script type="module">
+  import './src/components/core/Button.ts';
+  import './src/components/core/Icon.ts';
 </script>
+<lit-button variant="primary">New element</lit-button>
 ```
 
-For production Lit/React work, copy the token CSS and the component source and
-adapt as needed — every component is plain React reading CSS custom properties,
+For production work, copy the token CSS and the component source and
+adapt as needed — every component is a Lit element reading CSS custom properties,
 with no external dependencies.
