@@ -1,6 +1,13 @@
 import { LitElement, html } from 'lit';
 
-const SIZES = {
+export type SegTabSize = 'sm' | 'md';
+
+interface SegTabItem {
+  id: string;
+  label: string;
+}
+
+const SIZES: Record<SegTabSize, { h: number; font: string; pad: string }> = {
   sm: { h: 26, font: 'var(--text-xs)', pad: '0 10px' },
   md: { h: 32, font: 'var(--text-sm)', pad: '0 14px' },
 };
@@ -12,13 +19,11 @@ export class SegmentedTabs extends LitElement {
     size: { type: String },
   };
 
-  constructor() {
-    super();
-    this.items = [];
-    this.size = 'md';
-  }
+  items: SegTabItem[] = [];
+  value?: string;
+  size: SegTabSize = 'md';
 
-  _onSelect(id) {
+  private _onSelect(id: string) {
     if (id !== this.value) {
       this.dispatchEvent(new CustomEvent('change', { detail: { value: id }, bubbles: true, composed: true }));
     }

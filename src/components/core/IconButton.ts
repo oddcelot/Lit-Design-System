@@ -1,10 +1,14 @@
 import { LitElement, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
+import type { IconName } from './Icon.js';
 import './Icon.js';
 
-const SIZES = { sm: 26, md: 32, lg: 40 };
+export type IconButtonSize = 'sm' | 'md' | 'lg';
+export type IconButtonVariant = 'ghost' | 'solid' | 'accent';
 
-const VARIANTS = {
+const SIZES: Record<IconButtonSize, number> = { sm: 26, md: 32, lg: 40 };
+
+const VARIANTS: Record<IconButtonVariant, { background: string; color: string; border: string }> = {
   ghost:  { background: 'transparent', color: 'var(--text-secondary)', border: '1px solid transparent' },
   solid:  { background: 'var(--surface-container-high)', color: 'var(--text)', border: '1px solid var(--border)' },
   accent: { background: 'var(--accent)', color: 'var(--on-accent)', border: '1px solid transparent' },
@@ -21,12 +25,11 @@ export class IconButton extends LitElement {
     label: { type: String },
   };
 
-  constructor() {
-    super();
-    this.size = 'md';
-    this.variant = 'ghost';
-    this.active = false;
-  }
+  icon?: IconName;
+  size: IconButtonSize = 'md';
+  variant: IconButtonVariant = 'ghost';
+  active: boolean = false;
+  label?: string;
 
   render() {
     const box = SIZES[this.size] || SIZES.md;

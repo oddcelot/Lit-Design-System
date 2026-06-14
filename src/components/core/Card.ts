@@ -1,21 +1,22 @@
 import { LitElement, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 
-const PADS = { none: 0, sm: 'var(--space-5)', md: 'var(--space-7)', lg: 'var(--space-9)' };
+export type CardPadding = 'none' | 'sm' | 'md' | 'lg';
+
+const PADS: Record<CardPadding, string> = { none: '0', sm: 'var(--space-5)', md: 'var(--space-7)', lg: 'var(--space-9)' };
 
 export class Card extends LitElement {
   static properties = {
-    title: { type: String },
+    cardTitle: { type: String, attribute: 'card-title' },
     subtitle: { type: String },
     padding: { type: String },
     interactive: { type: Boolean },
   };
 
-  constructor() {
-    super();
-    this.padding = 'md';
-    this.interactive = false;
-  }
+  cardTitle: string = '';
+  subtitle?: string;
+  padding: CardPadding = 'md';
+  interactive: boolean = false;
 
   render() {
     const pad = PADS[this.padding] ?? PADS.md;
@@ -34,7 +35,7 @@ export class Card extends LitElement {
           ${this.interactive ? 'cursor: pointer;' : ''}
         "
       >
-        ${this.title ? html`
+        ${this.cardTitle ? html`
           <div style="
             display: flex;
             align-items: center;
@@ -45,7 +46,7 @@ export class Card extends LitElement {
           ">
             <div style="min-width: 0;">
               <div style="font: var(--weight-semibold) var(--text-sm)/1.3 var(--font-sans); color: var(--text);">
-                ${this.title}
+                ${this.cardTitle}
               </div>
               ${this.subtitle ? html`
                 <div style="margin-top:2px; font: var(--weight-regular) var(--text-xs)/1.4 var(--font-sans); color: var(--text-secondary);">

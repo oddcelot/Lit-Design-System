@@ -1,7 +1,9 @@
 import { LitElement, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 
-const TONES = {
+export type BadgeTone = 'neutral' | 'accent' | 'cyan' | 'success' | 'warning' | 'error';
+
+const TONES: Record<BadgeTone, { bg: string; fg: string }> = {
   neutral: { bg: 'var(--surface-container-high)', fg: 'var(--text-secondary)' },
   accent:  { bg: 'var(--accent-soft)', fg: 'var(--accent)' },
   cyan:    { bg: 'hsl(187 100% 47% / 0.16)', fg: 'var(--accent-cyan)' },
@@ -17,12 +19,9 @@ export class Badge extends LitElement {
     mono: { type: Boolean },
   };
 
-  constructor() {
-    super();
-    this.tone = 'neutral';
-    this.dot = false;
-    this.mono = false;
-  }
+  tone: BadgeTone = 'neutral';
+  dot: boolean = false;
+  mono: boolean = false;
 
   render() {
     const t = TONES[this.tone] || TONES.neutral;

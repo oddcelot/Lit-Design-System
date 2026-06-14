@@ -1,7 +1,15 @@
 import { LitElement, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 
-const SIZES = {
+export type SwitchSize = 'sm' | 'md';
+
+interface SizeConfig {
+  w: number;
+  h: number;
+  k: number;
+}
+
+const SIZES: Record<SwitchSize, SizeConfig> = {
   sm: { w: 30, h: 18, k: 12 },
   md: { w: 38, h: 22, k: 16 },
 };
@@ -14,14 +22,12 @@ export class Switch extends LitElement {
     label: { type: String },
   };
 
-  constructor() {
-    super();
-    this.checked = false;
-    this.disabled = false;
-    this.size = 'md';
-  }
+  checked: boolean = false;
+  disabled: boolean = false;
+  size: SwitchSize = 'md';
+  label?: string;
 
-  _onToggle() {
+  private _onToggle() {
     if (this.disabled) return;
     this.checked = !this.checked;
     this.dispatchEvent(new CustomEvent('change', {
@@ -31,7 +37,7 @@ export class Switch extends LitElement {
     }));
   }
 
-  _onKeyDown(e) {
+  private _onKeyDown(e: KeyboardEvent) {
     if (this.disabled) return;
     if (e.key === ' ' || e.key === 'Enter') {
       e.preventDefault();

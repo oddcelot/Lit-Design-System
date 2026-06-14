@@ -1,4 +1,5 @@
 import { LitElement, html } from 'lit';
+import type { IconName } from '../core/Icon.js';
 import '../core/Icon.js';
 
 export class StatCard extends LitElement {
@@ -7,13 +8,12 @@ export class StatCard extends LitElement {
     value: { type: String },
     label: { type: String },
     accent: { type: Boolean },
-    onClick: { type: Function },
   };
 
-  constructor() {
-    super();
-    this.accent = false;
-  }
+  icon?: IconName;
+  value?: string;
+  label?: string;
+  accent: boolean = false;
 
   render() {
     return html`

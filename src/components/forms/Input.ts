@@ -1,7 +1,17 @@
 import { LitElement, html } from 'lit';
+import type { IconName } from '../core/Icon.js';
 import '../core/Icon.js';
 
-const SIZES = {
+export type InputSize = 'sm' | 'md' | 'lg';
+
+interface SizeConfig {
+  height: number;
+  font: string;
+  pad: number;
+  icon: number;
+}
+
+const SIZES: Record<InputSize, SizeConfig> = {
   sm: { height: 28, font: 'var(--text-xs)', pad: 8, icon: 15 },
   md: { height: 34, font: 'var(--text-sm)', pad: 10, icon: 16 },
   lg: { height: 40, font: 'var(--text-md)', pad: 12, icon: 18 },
@@ -18,20 +28,20 @@ export class Input extends LitElement {
     value: { type: String },
   };
 
-  constructor() {
-    super();
-    this.size = 'md';
-    this.full = true;
-    this.invalid = false;
-    this.value = '';
-  }
+  icon?: IconName;
+  size: InputSize = 'md';
+  full: boolean = true;
+  invalid: boolean = false;
+  trailing?: string;
+  placeholder?: string;
+  value: string = '';
 
-  _onInput(e) {
-    this.value = e.target.value;
+  private _onInput(e: Event) {
+    this.value = (e.target as HTMLInputElement).value;
     this.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
   }
 
-  _onChange(e) {
+  private _onChange() {
     this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
   }
 

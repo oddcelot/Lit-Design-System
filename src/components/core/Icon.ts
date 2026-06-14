@@ -1,7 +1,16 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, type PropertyValues } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
-const PATHS = {
+export type IconName =
+  | 'info' | 'components' | 'tree' | 'assets' | 'route' | 'timeline'
+  | 'graph' | 'search' | 'inspect' | 'settings'
+  | 'close' | 'chevron-right' | 'chevron-down' | 'chevron-left' | 'check'
+  | 'plus' | 'refresh' | 'code' | 'eye' | 'external-link' | 'target'
+  | 'filter' | 'copy' | 'split' | 'star' | 'bulb' | 'map' | 'bug'
+  | 'command' | 'zap' | 'file' | 'folder' | 'terminal' | 'github'
+  | 'layers' | 'package' | 'link';
+
+const PATHS: Record<IconName, string> = {
   info: '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>',
   components: '<path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/>',
   tree: '<rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="6" width="6" height="6" rx="1"/><rect x="15" y="15" width="6" height="6" rx="1"/><path d="M9 6h3a2 2 0 0 1 2 2v0"/><path d="M14 18h-2a2 2 0 0 1-2-2V9"/>',
@@ -49,14 +58,24 @@ export class Icon extends LitElement {
     title: { type: String },
   };
 
-  constructor() {
-    super();
-    this.size = 18;
-    this.strokeWidth = 2;
-  }
+  name?: IconName;
+  size: number = 18;
+  strokeWidth: number = 2;
+  title: string = '';
+
+  static styles = css`
+    :host {
+      display: inline-block;
+      flex-shrink: 0;
+      line-height: 0;
+    }
+    svg {
+      display: block;
+    }
+  `;
 
   render() {
-    const inner = PATHS[this.name];
+    const inner = this.name ? PATHS[this.name] : '';
     const titleEl = this.title ? html`<title>${this.title}</title>` : '';
     return html`
       <svg
@@ -77,19 +96,8 @@ export class Icon extends LitElement {
       </svg>
     `;
   }
-
-  static styles = css`
-    :host {
-      display: inline-block;
-      flex-shrink: 0;
-      line-height: 0;
-    }
-    svg {
-      display: block;
-    }
-  `;
 }
 
 customElements.define('lit-icon', Icon);
 
-export const ICON_NAMES = Object.keys(PATHS);
+export const ICON_NAMES = Object.keys(PATHS) as IconName[];

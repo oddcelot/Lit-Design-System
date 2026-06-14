@@ -1,14 +1,26 @@
 import { LitElement, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
+import type { IconName } from './Icon.js';
 import './Icon.js';
 
-const SIZES = {
+export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger';
+export type ButtonSize = 'sm' | 'md' | 'lg';
+
+interface SizeConfig {
+  height: number;
+  padding: string;
+  font: string;
+  gap: number;
+  icon: number;
+}
+
+const SIZES: Record<ButtonSize, SizeConfig> = {
   sm: { height: 28, padding: '0 10px', font: 'var(--text-xs)', gap: 6, icon: 15 },
   md: { height: 34, padding: '0 14px', font: 'var(--text-sm)', gap: 7, icon: 17 },
   lg: { height: 42, padding: '0 20px', font: 'var(--text-md)', gap: 8, icon: 19 },
 };
 
-const VARIANTS = {
+const VARIANTS: Record<ButtonVariant, { background: string; color: string; border: string }> = {
   primary:   { background: 'var(--accent)', color: 'var(--on-accent)', border: '1px solid transparent' },
   secondary: { background: 'transparent', color: 'var(--text)', border: '1px solid var(--border-strong)' },
   ghost:     { background: 'transparent', color: 'var(--text-secondary)', border: '1px solid transparent' },
@@ -25,13 +37,12 @@ export class Button extends LitElement {
     full: { type: Boolean },
   };
 
-  constructor() {
-    super();
-    this.variant = 'primary';
-    this.size = 'md';
-    this.disabled = false;
-    this.full = false;
-  }
+  variant: ButtonVariant = 'primary';
+  size: ButtonSize = 'md';
+  icon?: IconName;
+  iconRight?: IconName;
+  disabled: boolean = false;
+  full: boolean = false;
 
   render() {
     const s = SIZES[this.size] || SIZES.md;

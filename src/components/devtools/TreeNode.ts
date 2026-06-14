@@ -12,19 +12,18 @@ export class TreeNode extends LitElement {
     badge: { type: String },
   };
 
-  constructor() {
-    super();
-    this.depth = 0;
-    this.expandable = false;
-    this.expanded = false;
-    this.selected = false;
-  }
+  tag?: string;
+  depth: number = 0;
+  expandable: boolean = false;
+  expanded: boolean = false;
+  selected: boolean = false;
+  badge?: string;
 
-  _onSelect(e) {
+  private _onSelect() {
     this.dispatchEvent(new CustomEvent('select', { bubbles: true, composed: true }));
   }
 
-  _onToggle(e) {
+  private _onToggle(e: MouseEvent) {
     e.stopPropagation();
     if (this.expandable) {
       this.dispatchEvent(new CustomEvent('toggle', { bubbles: true, composed: true }));

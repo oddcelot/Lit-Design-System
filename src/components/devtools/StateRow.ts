@@ -1,7 +1,9 @@
 import { LitElement, html } from 'lit';
 import '../core/Icon.js';
 
-const COLORS = {
+export type StateValueType = 'string' | 'number' | 'boolean' | 'ref' | 'object' | 'function' | 'null';
+
+const COLORS: Record<string, string> = {
   string: 'var(--code-string)',
   number: 'var(--code-number)',
   boolean: 'var(--code-keyword)',
@@ -22,26 +24,26 @@ export class StateRow extends LitElement {
     badge: { type: String },
   };
 
-  constructor() {
-    super();
-    this.type = 'string';
-    this.depth = 0;
-    this.expandable = false;
-    this.expanded = false;
-  }
+  name?: string;
+  value?: string;
+  type: StateValueType = 'string';
+  depth: number = 0;
+  expandable: boolean = false;
+  expanded: boolean = false;
+  badge?: string;
 
-  _onToggle() {
+  private _onToggle() {
     if (this.expandable) {
       this.dispatchEvent(new CustomEvent('toggle', { bubbles: true, composed: true }));
     }
   }
 
-  _renderValue() {
+  private _renderValue() {
     const t = this.type || (
       typeof this.value === 'number' ? 'number' :
       typeof this.value === 'boolean' ? 'boolean' : 'string'
     );
-    let text = this.value;
+    let text: string | number | boolean = this.value ?? '';
     if (t === 'string') text = `"${this.value}"`;
     const color = COLORS[t] || 'var(--text)';
     return html`<span style="color: ${color}; font-weight: var(--weight-medium);">${text}</span>`;
