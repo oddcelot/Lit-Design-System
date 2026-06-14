@@ -2,7 +2,6 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import { readdirSync, statSync } from 'fs';
 import { fileURLToPath } from 'url';
-import { injectSiteNav } from './vite-plugins/inject-site-nav.js';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
 
@@ -30,7 +29,6 @@ export default defineConfig({
   root,
   base: './',
   publicDir: false,
-  plugins: [injectSiteNav()],
   build: {
     outDir: 'dist-site',
     emptyOutDir: true,

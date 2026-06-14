@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lit Design System — Playground</title>
+<link rel="stylesheet" href="styles.css" />
+<style>
+  html, body { margin: 0; min-height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    padding: 32px;
+  }
+  .page-head { display: flex; align-items: center; gap: 14px; margin-bottom: 36px; }
+  .page-head h1 { font: var(--weight-extrabold) var(--text-3xl)/1 var(--font-sans); color: var(--text-strong); letter-spacing: var(--tracking-tight); margin: 0; }
+  .page-head p { margin: 4px 0 0; font: var(--weight-regular) var(--text-sm)/1.4 var(--font-sans); color: var(--text-secondary); }
+  nav { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 40px; padding: 12px 16px; background: var(--surface-container); border-radius: var(--radius-lg); border: 1px solid var(--border-subtle); }
+  nav a { font: var(--weight-medium) var(--text-sm)/1 var(--font-sans); color: var(--text-secondary); text-decoration: none; padding: 6px 12px; border-radius: var(--radius-sm); transition: background var(--dur-fast); }
+  nav a:hover { background: var(--surface-hover); color: var(--text); }
+  section { margin-bottom: 40px; }
+  h2 { font: var(--weight-semibold) var(--text-lg)/1.5 var(--font-sans); color: var(--text-strong); margin: 0 0 16px; display: flex; align-items: center; gap: 10px; }
+  h2 a { font: var(--weight-regular) var(--text-2xs)/1 var(--font-mono); color: var(--text-muted); text-decoration: none; padding: 2px 8px; background: var(--surface-container-high); border-radius: var(--radius-xs); }
+  h2 a:hover { color: var(--accent); }
+  h3 { font: var(--weight-medium) var(--text-sm)/1.5 var(--font-sans); color: var(--text-secondary); margin: 0 0 8px; text-transform: uppercase; letter-spacing: var(--tracking-wide); }
+  .row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 16px; }
+  .cols-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 660px; }
+</style>
+</head>
+<body>
+  <div class="page-head">
+    <img src="assets/flame.svg" height="44" alt="Lit" />
+    <div>
+      <h1>Design System Playground</h1>
+      <p>All components in every variant — use this as a visual reference and interactive test bench.</p>
+    </div>
+  </div>
+
+  <nav>
+    <a href="#badges">Badges</a>
+    <a href="#buttons">Buttons</a>
+    <a href="#icon-buttons">Icon Buttons</a>
+    <a href="#cards">Cards</a>
+    <a href="#tabs">Tabs</a>
+    <a href="#inputs">Inputs</a>
+    <a href="#switches">Switches</a>
+    <a href="#stat-cards">Stat Cards</a>
+    <a href="#tree">Tree</a>
+    <a href="#state">State</a>
+    <a href="#icons">Icons</a>
+    <a href="theme-showcase.html">Themes</a>
+  </nav>
+
+  <section id="badges">
+    <h2>Badges <a href="components/core/core.card.html">card</a></h2>
+    <h3>Tones</h3>
+    <div class="row">
+      <lit-badge tone="neutral">neutral</lit-badge>
+      <lit-badge tone="accent">accent</lit-badge>
+      <lit-badge tone="cyan">cyan</lit-badge>
+      <lit-badge tone="success">success</lit-badge>
+      <lit-badge tone="warning">warning</lit-badge>
+      <lit-badge tone="error">error</lit-badge>
+    </div>
+    <h3>With dot, mono</h3>
+    <div class="row">
+      <lit-badge tone="neutral" dot>live</lit-badge>
+      <lit-badge tone="success" dot>connected</lit-badge>
+      <lit-badge tone="error" dot>error</lit-badge>
+      <lit-badge tone="accent" mono>@property</lit-badge>
+      <lit-badge tone="neutral" mono>v3.3.3</lit-badge>
+    </div>
+  </section>
+
+  <section id="buttons">
+    <h2>Buttons <a href="components/core/core.card.html">card</a></h2>
+    <h3>Variants</h3>
+    <div class="row">
+      <lit-button variant="primary">Primary</lit-button>
+      <lit-button variant="secondary">Secondary</lit-button>
+      <lit-button variant="ghost">Ghost</lit-button>
+      <lit-button variant="danger">Danger</lit-button>
+    </div>
+    <h3>Sizes</h3>
+    <div class="row">
+      <lit-button size="sm">Small</lit-button>
+      <lit-button size="md">Medium</lit-button>
+      <lit-button size="lg">Large</lit-button>
+    </div>
+    <h3>With icons</h3>
+    <div class="row">
+      <lit-button variant="primary" icon="star">Star</lit-button>
+      <lit-button variant="secondary" icon-right="external-link">Open</lit-button>
+      <lit-button variant="ghost" icon="settings">Settings</lit-button>
+    </div>
+    <h3>States</h3>
+    <div class="row">
+      <lit-button variant="primary" disabled>Disabled</lit-button>
+      <lit-button variant="primary" full>Full Width</lit-button>
+    </div>
+  </section>
+
+  <section id="icon-buttons">
+    <h2>Icon Buttons <a href="components/core/core.card.html">card</a></h2>
+    <div class="row">
+      <lit-icon-button icon="search" label="Search"></lit-icon-button>
+      <lit-icon-button icon="settings" label="Settings" variant="solid"></lit-icon-button>
+      <lit-icon-button icon="star" label="Star" variant="accent"></lit-icon-button>
+      <lit-icon-button icon="star" label="Active" active></lit-icon-button>
+      <lit-icon-button icon="refresh" label="Reload" variant="solid"></lit-icon-button>
+    </div>
+  </section>
+
+  <section id="cards">
+    <h2>Cards <a href="components/core/core.card.html">card</a></h2>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 600px;">
+      <lit-card card-title="Panel Title" subtitle="Optional description here">
+        Card body content goes in the default slot.
+      </lit-card>
+      <lit-card interactive>
+        Interactive card with hover border effect.
+      </lit-card>
+      <lit-card card-title="With actions">
+        <div slot="actions">
+          <lit-button size="sm" variant="ghost">Action</lit-button>
+        </div>
+        Body content with header actions.
+      </lit-card>
+    </div>
+  </section>
+
+  <section id="tabs">
+    <h2>Segmented Tabs <a href="components/devtools/devtools.card.html">card</a></h2>
+    <div class="row">
+      <lit-segmented-tabs id="demo-tabs"></lit-segmented-tabs>
+      <span id="tab-value" style="font: var(--weight-medium) var(--text-sm)/1 var(--font-mono); color: var(--text-muted);"></span>
+    </div>
+  </section>
+
+  <section id="inputs">
+    <h2>Inputs <a href="components/forms/forms.card.html">card</a></h2>
+    <div style="display: flex; flex-direction: column; gap: 12px; max-width: 400px;">
+      <lit-input placeholder="Search components..." icon="search"></lit-input>
+      <lit-input placeholder="Small" size="sm" icon="filter"></lit-input>
+      <lit-input placeholder="Invalid input" invalid></lit-input>
+      <lit-input placeholder="With trailing" trailing=".com"></lit-input>
+    </div>
+  </section>
+
+  <section id="switches">
+    <h2>Switches <a href="components/forms/forms.card.html">card</a></h2>
+    <div class="row">
+      <lit-switch id="demo-switch" label="Toggle me"></lit-switch>
+      <lit-switch checked label="Already on"></lit-switch>
+      <lit-switch size="sm" label="Small"></lit-switch>
+      <lit-switch disabled label="Disabled"></lit-switch>
+    </div>
+  </section>
+
+  <section id="stat-cards">
+    <h2>Stat Cards <a href="components/devtools/devtools.card.html">card</a></h2>
+    <div class="cols-3">
+      <lit-stat-card icon="package" value="v3.3.3" label="Lit" accent></lit-stat-card>
+      <lit-stat-card icon="route" value="12" label="pages"></lit-stat-card>
+      <lit-stat-card icon="components" value="24" label="elements"></lit-stat-card>
+    </div>
+  </section>
+
+  <section id="tree">
+    <h2>Tree View <a href="components/devtools/devtools.card.html">card</a></h2>
+    <div id="demo-tree-wrap" style="background: var(--surface-container); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 8px; max-width: 360px;">
+      <lit-tree-node tag="todo-app" depth="0" expandable expanded data-id="app">
+        <lit-tree-node tag="todo-header" depth="1" data-id="header"></lit-tree-node>
+        <lit-tree-node tag="todo-list" depth="1" expandable expanded badge="3" selected data-id="list">
+          <lit-tree-node tag="todo-item" depth="2" data-id="item"></lit-tree-node>
+        </lit-tree-node>
+      </lit-tree-node>
+    </div>
+  </section>
+
+  <section id="state">
+    <h2>State Inspector <a href="components/devtools/devtools.card.html">card</a></h2>
+    <div id="demo-state-wrap" style="background: var(--surface-container); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 8px; max-width: 360px;">
+      <lit-state-row name="properties" value="Reactive" expandable expanded badge="@property">
+        <lit-state-row name="count" value="3" type="number" depth="1"></lit-state-row>
+        <lit-state-row name="label" value="Buy milk" type="string" depth="1"></lit-state-row>
+        <lit-state-row name="done" value="false" type="boolean" depth="1"></lit-state-row>
+      </lit-state-row>
+    </div>
+  </section>
+
+  <section id="icons">
+    <h2>Icons</h2>
+    <div class="row" id="icon-grid" style="gap: 16px;"></div>
+  </section>
+
+  <script type="module">
+    import './src/index.ts';
+
+    // ---- Tabs ----
+    const tabs = document.getElementById('demo-tabs');
+    tabs.items = [
+      { id: 'props', label: 'Properties' },
+      { id: 'attrs', label: 'Attributes' },
+      { id: 'events', label: 'Events' },
+    ];
+    tabs.value = 'props';
+    const tabVal = document.getElementById('tab-value');
+    tabs.addEventListener('change', (e) => { tabVal.textContent = 'active: ' + e.detail.value; });
+    tabVal.textContent = 'active: props';
+
+    // ---- Switch ----
+    document.getElementById('demo-switch').addEventListener('change', (e) => {
+      console.log('switch:', e.detail.checked);
+    });
+
+    // ---- Tree ----
+    const treeWrap = document.getElementById('demo-tree-wrap');
+    treeWrap.addEventListener('select', (e) => {
+      treeWrap.querySelectorAll('lit-tree-node').forEach((n) => n.selected = false);
+      e.target.selected = true;
+    });
+    treeWrap.addEventListener('toggle', (e) => {
+      const node = e.target;
+      node.expanded = !node.expanded;
+    });
+
+    // ---- State ----
+    const stateWrap = document.getElementById('demo-state-wrap');
+    stateWrap.addEventListener('toggle', (e) => {
+      const row = e.target;
+      row.expanded = !row.expanded;
+    });
+
+    // ---- Icon grid ----
+    const iconGrid = document.getElementById('icon-grid');
+    const ICON_NAMES = [
+      'info','components','tree','assets','route','timeline','graph','search','inspect','settings',
+      'close','chevron-right','chevron-down','chevron-left','check','plus','refresh','code','eye',
+      'external-link','target','filter','copy','split','star','bulb','map','bug','command','zap',
+      'file','folder','terminal','github','layers','package','link',
+    ];
+    for (const name of ICON_NAMES) {
+      const wrapper = document.createElement('div');
+      wrapper.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:4px;';
+      const icon = document.createElement('lit-icon');
+      icon.name = name;
+      icon.size = 22;
+      wrapper.appendChild(icon);
+      const label = document.createElement('span');
+      label.style.cssText = 'font:var(--weight-regular) var(--text-2xs)/1 var(--font-mono);color:var(--text-muted);';
+      label.textContent = name;
+      wrapper.appendChild(label);
+      iconGrid.appendChild(wrapper);
+    }
+  </script>
+</body>
+</html>
