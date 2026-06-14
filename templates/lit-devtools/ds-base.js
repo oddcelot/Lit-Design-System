@@ -1,8 +1,4 @@
-// ds-base.js — loads the Lit Design System (global CSS + component bundle).
-// In this design system, base points at the project root ('../..').
-// In a CONSUMING project, repoint `base` at the bound _ds/<folder> tree
-// relative to this page.
-(() => {
+( () => {
   const base = '../..';
   for (const p of ['styles.css']) {
     const l = document.createElement('link');
@@ -11,11 +7,11 @@
     document.head.appendChild(l);
   }
   const s = document.createElement('script');
-  s.src = base + '/_ds_bundle.js';
+  s.src = base + '/dist/_ds_bundle.js';
   s.onerror = () =>
     console.error(
       'ds-base.js: failed to load ' + s.src +
-      ' — in a consuming project, point the base line at the bound _ds/<folder> tree relative to this page; in a fresh design system the bundle may not be compiled yet'
+      ' — ensure Vite build has been run (npm run build)'
     );
   document.head.appendChild(s);
 })();

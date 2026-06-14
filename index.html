@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lit Design System</title>
+<link rel="stylesheet" href="./styles.css" />
+<style>
+  html, body { margin: 0; height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    padding: 32px;
+  }
+  section { margin-bottom: 40px; }
+  h2 { font: var(--weight-semibold) var(--text-lg)/1.5 var(--font-sans); color: var(--text-strong); margin: 0 0 12px; }
+  h3 { font: var(--weight-medium) var(--text-sm)/1.5 var(--font-sans); color: var(--text-secondary); margin: 0 0 8px; text-transform: uppercase; letter-spacing: var(--tracking-wide); }
+  .row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 16px; }
+</style>
+</head>
+<body>
+  <h1 style="font: var(--weight-extrabold) var(--text-3xl)/1 var(--font-sans); color: var(--text-strong); margin: 0 0 32px; letter-spacing: var(--tracking-tight);">Lit Design System</h1>
+
+  <section>
+    <h2>Badges</h2>
+    <div class="row">
+      <lit-badge tone="neutral">neutral</lit-badge>
+      <lit-badge tone="accent">accent</lit-badge>
+      <lit-badge tone="cyan">cyan</lit-badge>
+      <lit-badge tone="success">success</lit-badge>
+      <lit-badge tone="warning">warning</lit-badge>
+      <lit-badge tone="error">error</lit-badge>
+      <lit-badge tone="neutral" dot>dot</lit-badge>
+      <lit-badge tone="accent" mono>mono</lit-badge>
+    </div>
+  </section>
+
+  <section>
+    <h2>Buttons</h2>
+    <h3>Variants</h3>
+    <div class="row">
+      <lit-button variant="primary">Primary</lit-button>
+      <lit-button variant="secondary">Secondary</lit-button>
+      <lit-button variant="ghost">Ghost</lit-button>
+      <lit-button variant="danger">Danger</lit-button>
+    </div>
+    <h3>Sizes</h3>
+    <div class="row">
+      <lit-button size="sm">Small</lit-button>
+      <lit-button size="md">Medium</lit-button>
+      <lit-button size="lg">Large</lit-button>
+    </div>
+    <h3>With icons</h3>
+    <div class="row">
+      <lit-button variant="primary" icon="star">Star</lit-button>
+      <lit-button variant="secondary" icon-right="external-link">Open</lit-button>
+    </div>
+    <h3>Disabled</h3>
+    <div class="row">
+      <lit-button variant="primary" disabled>Disabled</lit-button>
+    </div>
+    <h3>Full width</h3>
+    <div class="row">
+      <lit-button variant="primary" full>Full Width</lit-button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Icon Buttons</h2>
+    <div class="row">
+      <lit-icon-button icon="search" label="Search"></lit-icon-button>
+      <lit-icon-button icon="settings" label="Settings" variant="solid"></lit-icon-button>
+      <lit-icon-button icon="star" label="Star" variant="accent"></lit-icon-button>
+      <lit-icon-button icon="star" label="Active" active></lit-icon-button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Cards</h2>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 600px;">
+      <lit-card title="Panel Title" subtitle="Optional description here">
+        Card body content goes here.
+      </lit-card>
+      <lit-card interactive>
+        Interactive card with hover effect.
+      </lit-card>
+    </div>
+  </section>
+
+  <section>
+    <h2>Segmented Tabs</h2>
+    <lit-segmented-tabs id="demo-tabs"></lit-segmented-tabs>
+  </section>
+
+  <section>
+    <h2>Inputs</h2>
+    <div style="display: flex; flex-direction: column; gap: 12px; max-width: 400px;">
+      <lit-input placeholder="Search..." icon="search"></lit-input>
+      <lit-input placeholder="Small input" size="sm" icon="filter"></lit-input>
+      <lit-input placeholder="Invalid input" invalid></lit-input>
+      <lit-input placeholder="With trailing" trailing=".com"></lit-input>
+    </div>
+  </section>
+
+  <section>
+    <h2>Switches</h2>
+    <div class="row">
+      <lit-switch label="Toggle me"></lit-switch>
+      <lit-switch checked label="Already on"></lit-switch>
+      <lit-switch size="sm" label="Small"></lit-switch>
+      <lit-switch disabled label="Disabled"></lit-switch>
+    </div>
+  </section>
+
+  <section>
+    <h2>Stat Cards</h2>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 600px;">
+      <lit-stat-card icon="package" value="v3.3.3" label="Lit" accent></lit-stat-card>
+      <lit-stat-card icon="route" value="12" label="pages"></lit-stat-card>
+      <lit-stat-card icon="components" value="24" label="elements"></lit-stat-card>
+    </div>
+  </section>
+
+  <section>
+    <h2>Icons</h2>
+    <div class="row">
+      <lit-icon name="star" size="24"></lit-icon>
+      <lit-icon name="search" size="20"></lit-icon>
+      <lit-icon name="settings" size="24" stroke-width="1.5"></lit-icon>
+      <lit-icon name="github" size="28"></lit-icon>
+    </div>
+  </section>
+
+  <script src="./dist/_ds_bundle.js"></script>
+  <script>
+    const tabs = document.getElementById('demo-tabs');
+    tabs.items = [
+      { id: 'code', label: 'Code' },
+      { id: 'design', label: 'Design' },
+      { id: 'preview', label: 'Preview' },
+    ];
+    tabs.value = 'code';
+    tabs.addEventListener('change', (e) => console.log('tab:', e.detail.value));
+  </script>
+</body>
+</html>
