@@ -23,6 +23,7 @@ class SiteNav extends LitElement {
       z-index: 100;
       overflow-y: auto;
       box-sizing: border-box;
+      view-transition-name: nav;
     }
 
     .header {
@@ -178,6 +179,44 @@ class SiteNav extends LitElement {
 
 customElements.define('lit-site-nav', SiteNav);
 
+function injectViewTransitionStyles() {
+  if (document.getElementById('lit-site-nav-transitions')) return;
+  const style = document.createElement('style');
+  style.id = 'lit-site-nav-transitions';
+  style.textContent = `
+    @view-transition {
+      navigation: auto;
+    }
+
+    ::view-transition-group(nav) {
+      animation: none;
+    }
+
+    ::view-transition-old(root) {
+      animation: var(--dur-normal) var(--ease-standard) both vt-slide-out;
+    }
+
+    ::view-transition-new(root) {
+      animation: var(--dur-normal) var(--ease-standard) both vt-slide-in;
+    }
+
+    @keyframes vt-slide-out {
+      to {
+        opacity: 0;
+        transform: translateX(-12px);
+      }
+    }
+
+    @keyframes vt-slide-in {
+      from {
+        opacity: 0;
+        transform: translateX(12px);
+      }
+    }
+  `;
+  document.head.appendChild(style);
+}
+
 function injectNav() {
   if (document.querySelector('lit-site-nav')) return;
   const nav = document.createElement('lit-site-nav');
@@ -186,7 +225,11 @@ function injectNav() {
 }
 
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', injectNav);
+  document.addEventListener('DOMContentLoaded', () => {
+    injectViewTransitionStyles();
+    injectNav();
+  });
 } else {
+  injectViewTransitionStyles();
   injectNav();
 }
