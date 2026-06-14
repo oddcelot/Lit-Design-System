@@ -200,55 +200,33 @@
 
       const treePanel = document.createElement('div');
       treePanel.className = 'inspector-panel';
-      const treeSel = { selected: 'item' };
-      function buildTree() {
-        treePanel.innerHTML = '';
-        const mkNode = (tag, depth, opts) => {
-          const n = document.createElement('lit-tree-node');
-          n.tag = tag; n.depth = depth;
-          if (opts.expandable) { n.expandable = true; n.expanded = true; }
-          if (opts.badge) n.badge = opts.badge;
-          n.selected = treeSel.selected === (opts.id || tag);
-          if (opts.id) {
-            n.addEventListener('select', () => { treeSel.selected = opts.id; buildTree(); });
-          }
-          return n;
-        };
-        const app = mkNode('todo-app', 0, { expandable: true, id: 'app' });
-        const header = mkNode('todo-header', 1, { id: 'header' });
-        const list = mkNode('todo-list', 1, { expandable: true, id: 'list', badge: '3' });
-        const item = mkNode('todo-item', 2, { id: 'item' });
-        list.appendChild(item);
-        app.appendChild(header);
-        app.appendChild(list);
-        treePanel.appendChild(app);
-      }
-      buildTree();
+      treePanel.innerHTML = `
+        <lit-tree-node tag="todo-app" depth="0" expandable expanded data-id="app">
+          <lit-tree-node tag="todo-header" depth="1" data-id="header"></lit-tree-node>
+          <lit-tree-node tag="todo-list" depth="1" expandable expanded badge="3" data-id="list">
+            <lit-tree-node tag="todo-item" depth="2" selected data-id="item"></lit-tree-node>
+          </lit-tree-node>
+        </lit-tree-node>
+      `;
+      treePanel.addEventListener('select', (e) => {
+        treePanel.querySelectorAll('lit-tree-node').forEach((n) => n.selected = false);
+        e.target.selected = true;
+      });
 
       const statePanel = document.createElement('div');
       statePanel.className = 'inspector-panel';
-      function buildState() {
-        statePanel.innerHTML = '';
-        const props = document.createElement('lit-state-row');
-        props.name = 'properties'; props.value = 'Reactive';
-        props.expandable = true; props.expanded = true; props.badge = '@property';
-        const expandedState = { val: true };
-        props.addEventListener('toggle', () => { expandedState.val = !expandedState.val; buildState(); });
-        const label = document.createElement('lit-state-row');
-        label.name = 'label'; label.value = 'Buy oat milk'; label.type = 'string'; label.depth = 1;
-        const idx = document.createElement('lit-state-row');
-        idx.name = 'index'; idx.value = '1'; idx.type = 'number'; idx.depth = 1;
-        const done = document.createElement('lit-state-row');
-        done.name = 'done'; done.value = 'false'; done.type = 'boolean'; done.depth = 1;
-        props.appendChild(label);
-        props.appendChild(idx);
-        props.appendChild(done);
-        statePanel.appendChild(props);
-        const refRow = document.createElement('lit-state-row');
-        refRow.name = 'node'; refRow.value = '<todo-item>'; refRow.type = 'ref';
-        statePanel.appendChild(refRow);
-      }
-      buildState();
+      statePanel.innerHTML = `
+        <lit-state-row name="properties" value="Reactive" expandable expanded badge="@property">
+          <lit-state-row name="label" value="Buy oat milk" type="string" depth="1"></lit-state-row>
+          <lit-state-row name="index" value="1" type="number" depth="1"></lit-state-row>
+          <lit-state-row name="done" value="false" type="boolean" depth="1"></lit-state-row>
+        </lit-state-row>
+        <lit-state-row name="node" value="<todo-item>" type="ref"></lit-state-row>
+      `;
+      statePanel.addEventListener('toggle', (e) => {
+        const row = e.target;
+        row.expanded = !row.expanded;
+      });
 
       igrid.appendChild(treePanel);
       igrid.appendChild(statePanel);

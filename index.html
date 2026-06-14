@@ -169,12 +169,25 @@
 
   <section id="tree">
     <h2>Tree View <a href="components/devtools/devtools.card.html">card</a></h2>
-    <div id="demo-tree-wrap" style="background: var(--surface-container); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 8px; max-width: 360px;"></div>
+    <div id="demo-tree-wrap" style="background: var(--surface-container); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 8px; max-width: 360px;">
+      <lit-tree-node tag="todo-app" depth="0" expandable expanded data-id="app">
+        <lit-tree-node tag="todo-header" depth="1" data-id="header"></lit-tree-node>
+        <lit-tree-node tag="todo-list" depth="1" expandable expanded badge="3" selected data-id="list">
+          <lit-tree-node tag="todo-item" depth="2" data-id="item"></lit-tree-node>
+        </lit-tree-node>
+      </lit-tree-node>
+    </div>
   </section>
 
   <section id="state">
     <h2>State Inspector <a href="components/devtools/devtools.card.html">card</a></h2>
-    <div id="demo-state-wrap" style="background: var(--surface-container); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 8px; max-width: 360px;"></div>
+    <div id="demo-state-wrap" style="background: var(--surface-container); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 8px; max-width: 360px;">
+      <lit-state-row name="properties" value="Reactive" expandable expanded badge="@property">
+        <lit-state-row name="count" value="3" type="number" depth="1"></lit-state-row>
+        <lit-state-row name="label" value="Buy milk" type="string" depth="1"></lit-state-row>
+        <lit-state-row name="done" value="false" type="boolean" depth="1"></lit-state-row>
+      </lit-state-row>
+    </div>
   </section>
 
   <section id="icons">
@@ -203,72 +216,22 @@
     });
 
     // ---- Tree ----
-    const wrap = document.getElementById('demo-tree-wrap');
-    const treeState = { expanded: { app: true, list: true }, selected: 'list' };
-    function buildTree() {
-      wrap.innerHTML = '';
-      const item = (tag, depth, opts = {}) => {
-        const el = document.createElement('lit-tree-node');
-        el.tag = tag;
-        el.depth = depth;
-        el.expandable = !!opts.expandable;
-        el.expanded = treeState.expanded[opts.id || tag] !== false;
-        el.selected = treeState.selected === (opts.id || tag);
-        if (opts.badge != null) el.badge = opts.badge;
-        if (opts.id) el.dataset.id = opts.id;
-        el.addEventListener('select', () => {
-          if (opts.id) treeState.selected = opts.id;
-          buildTree();
-        });
-        el.addEventListener('toggle', () => {
-          if (opts.id) treeState.expanded[opts.id] = !treeState.expanded[opts.id];
-          buildTree();
-        });
-        return el;
-      };
-      const app = item('todo-app', 0, { expandable: true, id: 'app' });
-      const header = item('todo-header', 1, { id: 'header' });
-      const list = item('todo-list', 1, { expandable: true, id: 'list', badge: '3' });
-      const item1 = item('todo-item', 2, { id: 'item' });
-      list.appendChild(item1);
-      app.appendChild(header);
-      app.appendChild(list);
-      wrap.appendChild(app);
-    }
-    buildTree();
+    const treeWrap = document.getElementById('demo-tree-wrap');
+    treeWrap.addEventListener('select', (e) => {
+      treeWrap.querySelectorAll('lit-tree-node').forEach((n) => n.selected = false);
+      e.target.selected = true;
+    });
+    treeWrap.addEventListener('toggle', (e) => {
+      const node = e.target;
+      node.expanded = !node.expanded;
+    });
 
     // ---- State ----
     const stateWrap = document.getElementById('demo-state-wrap');
-    const stateRows = [
-      { name: 'properties', value: 'Reactive', expandable: true, expanded: true, badge: '@property' },
-      { name: 'count', value: '3', type: 'number', depth: 1 },
-      { name: 'label', value: 'Buy milk', type: 'string', depth: 1 },
-      { name: 'done', value: 'false', type: 'boolean', depth: 1 },
-    ];
-    function buildState() {
-      stateWrap.innerHTML = '';
-      const main = document.createElement('lit-state-row');
-      main.name = stateRows[0].name;
-      main.value = stateRows[0].value;
-      main.expandable = stateRows[0].expandable;
-      main.expanded = stateRows[0].expanded;
-      main.badge = stateRows[0].badge;
-      main.addEventListener('toggle', () => {
-        stateRows[0].expanded = !stateRows[0].expanded;
-        buildState();
-      });
-      for (let i = 1; i < stateRows.length; i++) {
-        const r = stateRows[i];
-        const row = document.createElement('lit-state-row');
-        row.name = r.name;
-        row.value = r.value;
-        row.type = r.type;
-        row.depth = r.depth;
-        main.appendChild(row);
-      }
-      stateWrap.appendChild(main);
-    }
-    buildState();
+    stateWrap.addEventListener('toggle', (e) => {
+      const row = e.target;
+      row.expanded = !row.expanded;
+    });
 
     // ---- Icon grid ----
     const iconGrid = document.getElementById('icon-grid');

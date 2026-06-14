@@ -27,11 +27,25 @@
   <div class="cols">
     <div>
       <p class="lbl">TreeNode</p>
-      <div class="panel" id="tree-panel"></div>
+      <div class="panel" id="tree-panel">
+        <lit-tree-node tag="todo-app" depth="0" expandable expanded data-id="app">
+          <lit-tree-node tag="todo-header" depth="1" data-id="header"></lit-tree-node>
+          <lit-tree-node tag="todo-list" depth="1" expandable expanded badge="3" selected data-id="list">
+            <lit-tree-node tag="todo-item" depth="2" data-id="item"></lit-tree-node>
+          </lit-tree-node>
+        </lit-tree-node>
+      </div>
     </div>
     <div>
       <p class="lbl">StateRow</p>
-      <div class="panel" id="state-panel"></div>
+      <div class="panel" id="state-panel">
+        <lit-state-row name="properties" value="Reactive" expandable expanded badge="@property">
+          <lit-state-row name="count" value="3" type="number" depth="1"></lit-state-row>
+          <lit-state-row name="label" value="Buy milk" type="string" depth="1"></lit-state-row>
+          <lit-state-row name="done" value="false" type="boolean" depth="1"></lit-state-row>
+        </lit-state-row>
+        <lit-state-row name="hidden" value="false" type="boolean" badge="(Ref)"></lit-state-row>
+      </div>
     </div>
   </div>
 
@@ -46,65 +60,17 @@
     ];
     tabs.value = 'props';
 
-    // ---- Tree ----
-    const state = { selected: 'list' };
-    function buildTree() {
-      const wrap = document.getElementById('tree-panel');
-      wrap.innerHTML = '';
-      const sel = (id) => {
-        state.selected = id;
-        buildTree();
-      };
-      const app = document.createElement('lit-tree-node');
-      app.tag = 'todo-app'; app.depth = 0; app.expandable = true; app.expanded = true;
-      app.selected = state.selected === 'app';
-      app.addEventListener('select', () => sel('app'));
-      const header = document.createElement('lit-tree-node');
-      header.tag = 'todo-header'; header.depth = 1;
-      header.selected = state.selected === 'header';
-      header.addEventListener('select', () => sel('header'));
-      const list = document.createElement('lit-tree-node');
-      list.tag = 'todo-list'; list.depth = 1; list.expandable = true; list.expanded = true;
-      list.badge = '3'; list.selected = state.selected === 'list';
-      list.addEventListener('select', () => sel('list'));
-      const item = document.createElement('lit-tree-node');
-      item.tag = 'todo-item'; item.depth = 2;
-      item.selected = state.selected === 'item';
-      item.addEventListener('select', () => sel('item'));
-      list.appendChild(item);
-      app.appendChild(header);
-      app.appendChild(list);
-      wrap.appendChild(app);
-    }
-    buildTree();
+    // ---- Tree selection ----
+    document.getElementById('tree-panel').addEventListener('select', (e) => {
+      e.currentTarget.querySelectorAll('lit-tree-node').forEach((n) => n.selected = false);
+      e.target.selected = true;
+    });
 
-    // ---- State ----
-    function buildState() {
-      const wrap = document.getElementById('state-panel');
-      wrap.innerHTML = '';
-      const props = document.createElement('lit-state-row');
-      props.name = 'properties'; props.value = 'Reactive';
-      props.expandable = true; props.expanded = true; props.badge = '@property';
-      props.addEventListener('toggle', () => {
-        props.expanded = !props.expanded;
-        buildState();
-      });
-      const count = document.createElement('lit-state-row');
-      count.name = 'count'; count.value = '3'; count.type = 'number'; count.depth = 1;
-      const label = document.createElement('lit-state-row');
-      label.name = 'label'; label.value = 'Buy milk'; label.type = 'string'; label.depth = 1;
-      const done = document.createElement('lit-state-row');
-      done.name = 'done'; done.value = 'false'; done.type = 'boolean'; done.depth = 1;
-      props.appendChild(count);
-      props.appendChild(label);
-      props.appendChild(done);
-      wrap.appendChild(props);
-
-      const hidden = document.createElement('lit-state-row');
-      hidden.name = 'hidden'; hidden.value = 'false'; hidden.type = 'boolean'; hidden.badge = '(Ref)';
-      wrap.appendChild(hidden);
-    }
-    buildState();
+    // ---- State toggle ----
+    document.getElementById('state-panel').addEventListener('toggle', (e) => {
+      const row = e.target;
+      row.expanded = !row.expanded;
+    });
   </script>
 </body>
 </html>
