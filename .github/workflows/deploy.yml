@@ -24,7 +24,8 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm run build:site
+      - run: npx vite build --config vite.site.config.js --base /Lit-Design-System/
+      - run: cp dist-site/index.html dist-site/404.html
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist-site
@@ -36,4 +37,5 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/deploy-pages@v4
+      - id: deployment
+        uses: actions/deploy-pages@v4

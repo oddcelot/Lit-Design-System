@@ -5,6 +5,9 @@ import manifest from '../../_ds_manifest.json';
 
 const GROUP_ORDER = ['site', 'Screens', 'Components', 'DevTools', 'Brand', 'Colors', 'Type', 'Spacing'];
 
+// Strip trailing slash so route paths can use BASE + '/foo' consistently
+const BASE = (document.querySelector('base')?.getAttribute('href') ?? '/').replace(/\/$/, '');
+
 interface NavItem {
   name: string;
   path: string;
@@ -108,18 +111,18 @@ export class SiteApp extends LitElement {
   `;
 
   private _router = new Router(this, [
-    { path: '/', enter: () => this._setFrame('playground.html') },
-    { path: '/theme-showcase', enter: () => this._setFrame('theme-showcase.html') },
+    { path: BASE + '/', enter: () => this._setFrame('playground.html') },
+    { path: BASE + '/theme-showcase', enter: () => this._setFrame('theme-showcase.html') },
     ...(manifest.cards || []).map((card: any) => ({
-      path: '/' + card.path.replace(/(?:\.card)?\.html$/, ''),
+      path: BASE + '/' + card.path.replace(/(?:\.card)?\.html$/, ''),
       enter: () => this._setFrame(card.path),
     })),
     ...(manifest.startingPoints || []).map((sp: any) => ({
-      path: '/' + sp.path.replace(/(?:\.card)?\.html$/, ''),
+      path: BASE + '/' + sp.path.replace(/(?:\.card)?\.html$/, ''),
       enter: () => this._setFrame(sp.path),
     })),
-    { path: '/templates/lit-devtools', enter: () => this._setFrame('templates/lit-devtools/index.html') },
-    { path: '/*', enter: () => this._setFrame('playground.html') },
+    { path: BASE + '/templates/lit-devtools', enter: () => this._setFrame('templates/lit-devtools/index.html') },
+    { path: BASE + '/*', enter: () => this._setFrame('playground.html') },
   ]);
 
   static properties = {
@@ -176,14 +179,15 @@ export class SiteApp extends LitElement {
   }
 
   private _isActive(path: string) {
-    return location.pathname === path || location.pathname === path + '.html';
+    const rel = location.pathname.slice(BASE.length) || '/';
+    return rel === path || rel === path + '.html';
   }
 
   render() {
     const groups = this._groupItems();
     return html`
       <nav class="nav">
-        <a class="header" href="/">
+        <a class="header" href=${BASE + '/'}>
           <img src="assets/flame.svg" height="24" width="24" alt="Lit" />
           <span>Lit Design System</span>
         </a>
@@ -193,7 +197,7 @@ export class SiteApp extends LitElement {
             ${items.map(item => html`
               <a
                 class="link ${this._isActive(item.path) ? 'active' : ''}"
-                href=${item.path}
+                href=${BASE + item.path}
                 title=${item.subtitle || item.name}
               >${item.name}</a>
             `)}
